@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import requests
 import json
 from laffey import one_para,no_para,two_paras,logging,helping,weather,network_tools,encrypt
+import urllib.parse
 
 admins = [675571268,2980503519]
 #检查目录存在性
@@ -31,7 +32,8 @@ def handle_msg(context):
         #非管理指令
             logging.logging_command(context)
             if context['user_id'] in admins:
-            #管理指令。
+            #管理指令
+
                 if content.split(' ',1)[1] == 'touch' or content.split(' ',1)[1] == '摸摸':
                     bot.send(context,'唔……嗯……糟了，站着睡着了')
 
@@ -126,20 +128,36 @@ def handle_msg(context):
                     bot.send(context,'群组 '+str(context['group_id'])+' 的复读频率: \n'+str(repeat)+' %')
                 else:
                     pass
+
             elif content.split(' ',2)[1]=='blacklist' or content.split(' ',2)[1]=='黑名单':
                 if content.split(' ',3)[2].strip()=='list' or content.split(' ',3)[2].strip()=='查询':
                     bot.send(context,'群组 '+str(group_id)+' 内的机器人黑名单查询完毕，共有 '+str(len(blacklist))+' 项\n内容如下:'+str('\n'.join(blacklist)))
                 else:
                     pass
+
             elif content.split(' ',2)[1]=='baidu' or content.split(' ',2)[1]=='百度':
                 try:
                     word = content.split(' ',2)[2] 
                 except IndexError:
                     #没有提供指令的时候raise IndexError，被捕捉到了。
                     logging.logging_error_empty_parameter(context)
-                    bot.send(context,'请提供百度搜索词')
+                    bot.send(context,'请提供百度搜索词\n指令格式:!laffey baidu <搜索关键词>')
                 else:
+                    word = urllib.parse.quote(word)
                     result = one_para.baidu(word)
+                    #用 URLLib 处理 Baidu 搜索关键词，将其编码成 URL 编码
+                    bot.send(context,result)
+
+            elif content.split(' ',2)[1] == 'google':
+                try:
+                    word = content.split(' ',2)[2] 
+                except IndexError:
+                    #没有提供指令的时候raise IndexError，被捕捉到了。
+                    logging.logging_error_empty_parameter(context)
+                    bot.send(context,'请提供Google搜索词')
+                else:
+                    word = urllib.parse.quote(word)
+                    result = one_para.google(word)
                     bot.send(context,result)
 
             elif content.split(' ',2)[1] == 'pixiv':
@@ -157,17 +175,6 @@ def handle_msg(context):
                             logging.logging_bad_type(context)
                             bot.send(context,'你提供的 Pixiv ID 号不是一个合法的数字')
 
-            elif content.split(' ',2)[1] == 'google':
-                try:
-                    word = content.split(' ',2)[2] 
-                except IndexError:
-                    #没有提供指令的时候raise IndexError，被捕捉到了。
-                    logging.logging_error_empty_parameter(context)
-                    bot.send(context,'请提供Google搜索词')
-                else:
-                    result = one_para.google(word)
-                    bot.send(context,result)
-
             elif content.split(' ',2)[1] == 'booru':
                     #Gelbooru爬虫精简版，来自Ecchibot
                 tags=content.split(' ',2)[2]
@@ -181,7 +188,7 @@ def handle_msg(context):
                 except IndexError:
                     #没有提供指令的时候raise IndexError，被捕捉到了。
                     logging.logging_error_empty_parameter(context)
-                    bot.send(context,'没有提供需要查询帮助的指令')
+                    bot.send(context,'没有提供需要查询帮助的指令\n用法:!laffey help <需要查询帮助的指令名字>')
                 else:
                     helps = helping.Help_for_Single_Command(command)
                     bot.send(context,helps)
@@ -212,7 +219,7 @@ def handle_msg(context):
                     citi = content.split(' ',2)[2]
                 except IndexError:
                     logging.logging_error_empty_parameter(context)
-                    bot.send(context,'请输入您要查询的城市')
+                    bot.send(context,'请输入您要查询的城市(仅中国大陆以及港澳台地区)')
                 else:
                     bot.send(context,weather.request_weather(citi))
 
@@ -242,7 +249,7 @@ def handle_msg(context):
                     mingw = content.split(' ',3)[3]
                 except IndexError:
                     logging.logging_error_empty_parameter(context)
-                    bot.send(context,'指令不完整，完整的指令格式为:\n!laffey encode <加密方式> <明文>')
+                    bot.send(context,'指令不完整，完整的指令格式为:\n!laffey encode <加密方式>(可选:md5,base64) <明文>')
                 else:
                     if entype == 'md5':
                         coded = encrypt.md5(mingw)
@@ -267,4 +274,6 @@ def handle_msg(context):
                     else:
                         bot.send(context,context['message'].replace('我','你'))
                         logging.logging_repeat_success(context)
+
 bot.run(host='127.0.0.1', port=8080)        
+#启动Bot
