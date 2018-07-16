@@ -7,8 +7,8 @@ from cqhttp_helper import CQHttp, Error
 from bs4 import BeautifulSoup
 import requests
 import json
-from laffey import one_para,no_para,two_paras,logging,helping,weather,network_tools,encrypt
 import urllib.parse
+from laffey import one_para,no_para,two_paras,logging,helping,weather,network_tools,encrypt
 
 admins = [675571268,2980503519]
 #检查目录存在性
@@ -73,7 +73,7 @@ def handle_msg(context):
                                     f_conf_w.close()
                                 bot.send(context,'用户'+number+'已从群组:'+str(group_id)+'的黑名单中移除。')
                             else:
-                                bot.send(context,'用户不存在，请查看是否有输入错误。')
+                                bot.send(context,'用户不存在，请查看是否有输入错误。\n指令的格式为:!laffey blacklist del <QQ>')
                         else:
                             logging.logging_bad_type(context)
                             bot.send(context,'你的输入有误，数据不是合法数字。')
