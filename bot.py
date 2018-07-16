@@ -154,26 +154,11 @@ def handle_msg(context):
                 except IndexError:
                     #没有提供指令的时候raise IndexError，被捕捉到了。
                     logging.logging_error_empty_parameter(context)
-                    bot.send(context,'请提供Google搜索词')
+                    bot.send(context,'请提供Google搜索词\n指令格式:!laffey google <搜索关键词>')
                 else:
                     word = urllib.parse.quote(word)
                     result = one_para.google(word)
                     bot.send(context,result)
-
-            elif content.split(' ',2)[1] == 'pixiv':
-                    try:
-                        pid = content.split(' ',2)[2] 
-                    except IndexError:
-                        #没有提供指令的时候raise IndexError，被捕捉到了。
-                        logging.logging_error_empty_parameter(context)
-                        bot.send(context,'请提供 Pixiv ID 号')
-                    else:
-                        if pid.isdigit():
-                            link = one_para.pixiv(pid)
-                            bot.send(context,link)
-                        else:
-                            logging.logging_bad_type(context)
-                            bot.send(context,'你提供的 Pixiv ID 号不是一个合法的数字')
 
             elif content.split(' ',2)[1] == 'booru':
                     #Gelbooru爬虫精简版，来自Ecchibot
@@ -219,7 +204,7 @@ def handle_msg(context):
                     citi = content.split(' ',2)[2]
                 except IndexError:
                     logging.logging_error_empty_parameter(context)
-                    bot.send(context,'请输入您要查询的城市(仅中国大陆以及港澳台地区)')
+                    bot.send(context,'请输入您要查询的城市(仅中国大陆以及港澳台地区)\n指令格式:!laffey weather <地区>')
                 else:
                     bot.send(context,weather.request_weather(citi))
 
@@ -228,7 +213,7 @@ def handle_msg(context):
                     addr = content.split(' ',2)[2]
                 except IndexError:
                     logging.logging_error_empty_parameter(context)
-                    bot.send(context,'请输入您要检测连通性的IP/域名')
+                    bot.send(context,'请输入您要检测连通性的IP/域名\n指令格式:!laffey ping <IP/域名>')
                 else:
                     result = network_tools.ping_test(addr)
                     bot.send(context,result)
@@ -238,7 +223,7 @@ def handle_msg(context):
                     addr = content.split(' ',2)[2]
                 except IndexError:
                     logging.logging_error_empty_parameter(context)
-                    bot.send(context,'请输入您要MyTraceRoute的IP/域名')
+                    bot.send(context,'请输入您要MyTraceRoute的IP/域名/n指令格式:!laffey mtr <IP/域名>')
                 else:
                     result = network_tools.mtr(addr)
                     bot.send(context,"MTR结果:\n"+result)
@@ -267,12 +252,13 @@ def handle_msg(context):
         #非指令判定复读
             if randint(1,100)>100-repeat:
                 if content[0] == '!' or "next time" in content:
+                    #防止触发kjBot和自动禁言指令
                     pass
                 else:
                     if str(context['user_id']) in blacklist:
                         logging.logging_repeat_failure(context)
                     else:
-                        bot.send(context,context['message'].replace('我','你'))
+                        bot.send(context,context['message'].replace('我','您'))
                         logging.logging_repeat_success(context)
 
 bot.run(host='127.0.0.1', port=8080)        
