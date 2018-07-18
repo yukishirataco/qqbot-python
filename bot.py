@@ -275,6 +275,8 @@ def handle_msg(context):
                             bot.send(context,context['message'].replace('我','ad'))
                         elif context['user_id'] == 675571268 or context['user_id'] == 2980503519:
                             bot.send(context,context['message'].replace('我','指挥官'))
+                        else:
+                            bot.send(context,context['message'].replace('我','你'))
                         logging.logging_repeat_success(context)
 
 bot.run(host='127.0.0.1', port=8080)        
