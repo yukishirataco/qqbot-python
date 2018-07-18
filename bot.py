@@ -260,21 +260,21 @@ def handle_msg(context):
                     else:
                         #针对不同的人替换到不同的内容
                         if context['user_id'] == 1181948577:
-                            bot.send(context,context['message'].replace('我','厑瓟痸')
+                            bot.send(context,context['message'].replace('我','厑瓟痸'))
                         elif context['user_id'] == 870680559:
-                            bot.send(context,context['message'].replace('我','BSY')
+                            bot.send(context,context['message'].replace('我','BSY'))
                         elif context['user_id'] == 1371855771:
-                            bot.send(context,context['message'].replace('我','max')
+                            bot.send(context,context['message'].replace('我','max'))
                         elif context['user_id'] == 542154951 or context['user_id'] == 3487973010:
-                            bot.send(context,context['message'].replace('我','red')
+                            bot.send(context,context['message'].replace('我','red'))
                         elif context['user_id'] == 1297976315:
-                            bot.send(context,context['message'].replace('我','john')
+                            bot.send(context,context['message'].replace('我','john'))
                         elif context['user_id'] == 1213696841:
-                            bot.send(context,context['message'].replace('我','1213')
+                            bot.send(context,context['message'].replace('我','1213'))
                         elif context['user_id'] == 2510470532:
-                            bot.send(context,context['message'].replace('我','ad')
+                            bot.send(context,context['message'].replace('我','ad'))
                         elif context['user_id'] == 675571268 or context['user_id'] == 2980503519:
-                            bot.send(context,context['message'].replace('我','指挥官')
+                            bot.send(context,context['message'].replace('我','指挥官'))
                         logging.logging_repeat_success(context)
 
 bot.run(host='127.0.0.1', port=8080)        
