@@ -10,10 +10,10 @@ import json
 import urllib.parse
 from laffey import one_para,no_para,two_paras,logging,helping,weather,network_tools,encrypt
 
-admins = [675571268,2980503519]
+admins = []
 #检查目录存在性
 no_para.check_dir_existence()
-bot = CQHttp(api_root='http://127.0.0.1:5700/',access_token='you9zh9chen991',)
+bot = CQHttp(api_root='http://127.0.0.1:5700/',access_token='',)
 
 @bot.on_message()
 def handle_msg(context):
