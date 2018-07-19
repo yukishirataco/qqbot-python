@@ -262,7 +262,7 @@ def handle_msg(context):
                         if context['user_id'] == 1181948577:
                             text_list = ['吖鉑彳',"醃僰瓻",'醃蔢卶',"厑噃灻",'錒秡杘']
                             replace_text = text_list[randint(0,len(text_list)-1)]
-                            bot.send(context,context['message'].replace('我',replace_text)
+                            bot.send(context,context['message'].replace('我',replace_text))
                         elif context['user_id'] == 870680559:
                             bot.send(context,context['message'].replace('我','BSY'))
                         elif context['user_id'] == 1371855771:
