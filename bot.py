@@ -254,13 +254,16 @@ def handle_msg(context):
                 if content[0] == '!' or "next time" in content:
                     #防止触发kjBot和自动禁言指令
                     pass
+                elif context['user_id'] == 1000000:
+                    pass
+                    #系统消息，不复读
                 else:
                     if str(context['user_id']) in blacklist:
                         logging.logging_repeat_failure(context)
                     else:
                         #针对不同的人替换到不同的内容
                         if context['user_id'] == 1181948577:
-                            text_list = ['吖鉑彳',"醃僰瓻",'醃蔢卶',"厑噃灻",'錒秡杘']
+                            text_list = ['吖鉑彳',"醃僰瓻",'醃蔢卶',"厑噃灻",'錒秡杘','呵砵伬','吖盋瘛']
                             replace_text = text_list[randint(0,len(text_list)-1)]
                             bot.send(context,context['message'].replace('我',replace_text))
                         elif context['user_id'] == 870680559:
