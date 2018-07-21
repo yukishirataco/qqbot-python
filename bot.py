@@ -273,6 +273,18 @@ def handle_msg(context):
                 if content[0] == '!' or "next time" in content:
                     #防止触发kjBot和自动禁言指令
                     pass
+                elif '我考' in content[0] or '我靠' in content[0] or '我拷' in content[0]:
+                    if str(context['user_id']) in blacklist:
+                        logging.logging_repeat_failure(context)
+                    else:
+                        #素质！素质！
+                        if context['user_id'] == 1181948577 or context['user_id'] == 3563182687:
+                            bot.send(context,context['message'].replace('我考','考'+abcgen())).replace('我靠','靠'+abcgen())).replace('我拷','拷'+abcgen()))
+                        elif: context['user_id'] in repeat_names:
+                            bot.send(context,context['message'].replace('我考','考'+repeat_names[context['user_id']])).replace('我靠','考'+repeat_names[context['user_id']])).replace('我拷','拷'+repeat_names[context['user_id']]))
+                        else:
+                            bot.send(context,context['message'].replace('我考','考你')).replace('我靠','靠你')).replace('我拷','拷你'))
+                        logging.logging_repeat_success(context)
                 else:
                     if str(context['user_id']) in blacklist:
                         logging.logging_repeat_failure(context)
