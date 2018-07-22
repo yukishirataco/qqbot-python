@@ -10,10 +10,29 @@ import json
 import urllib.parse
 from laffey import one_para,no_para,two_paras,logging,helping,weather,network_tools,encrypt
 
-admins = [675571268,2980503519]
+repeat_names = { 870680559: 'BSY',
+                 1371855771: 'max',
+                 542154951: 'red',
+                 3487973010: 'red',
+                 1297976315: 'john',
+                 1213696841: '121',
+                 2510470532: 'ad',
+                 675571268: '指挥官',
+                 2980503519: '指挥官',
+                 624749918: '阿帕奇' }
+
+a_list =  '吖醃醃厑錒呵吖ア' 
+b_list =  '鉑僰蔢噃秡砵盋ボ' 
+c_list =  '彳瓻卶灻杘伬瘛チ' 
+
+def abcgen():
+    name = choice(a_list) + choice(b_list) + choice(c_list)
+    return name
+
+admins = []
 #检查目录存在性
 no_para.check_dir_existence()
-bot = CQHttp(api_root='http://127.0.0.1:5700/',access_token='you9zh9chen991',)
+bot = CQHttp(api_root='http://127.0.0.1:5700/',access_token='',)
 
 @bot.on_message()
 def handle_msg(context):
@@ -250,36 +269,32 @@ def handle_msg(context):
                 pass
         else:
         #非指令判定复读
-            if randint(1,100)>100-repeat:
+            if choice(range(0,100)) > 100-repeat:
+                #当概率大于复读频率时
                 if content[0] == '!' or "next time" in content:
                     #防止触发kjBot和自动禁言指令
                     pass
-                elif context['user_id'] == 1000000:
-                    pass
-                    #系统消息，不复读
+                elif '我考' in content[0] or '我靠' in content[0] or '我拷' in content[0]:
+                    if str(context['user_id']) in blacklist:
+                        logging.logging_repeat_failure(context)
+                    else:
+                        #素质！素质！
+                        if context['user_id'] == 1181948577 or context['user_id'] == 3563182687:
+                            bot.send(context,context['message'].replace('我考','考'+abcgen()).replace('我靠','靠'+abcgen()).replace('我拷','拷'+abcgen()))
+                        elif context['user_id'] in repeat_names:
+                            bot.send(context,context['message'].replace('我考','考'+repeat_names[context['user_id']]).replace('我靠','考'+repeat_names[context['user_id']]).replace('我拷','拷'+repeat_names[context['user_id']]))
+                        else:
+                            bot.send(context,context['message'].replace('我考','考你').replace('我靠','靠你').replace('我拷','拷你'))
+                        logging.logging_repeat_success(context)
                 else:
                     if str(context['user_id']) in blacklist:
                         logging.logging_repeat_failure(context)
                     else:
                         #针对不同的人替换到不同的内容
-                        if context['user_id'] == 1181948577:
-                            text_list = ['吖鉑彳',"醃僰瓻",'醃蔢卶',"厑噃灻",'錒秡杘','呵砵伬','吖盋瘛']
-                            replace_text = text_list[randint(0,len(text_list)-1)]
-                            bot.send(context,context['message'].replace('我',replace_text))
-                        elif context['user_id'] == 870680559:
-                            bot.send(context,context['message'].replace('我','BSY'))
-                        elif context['user_id'] == 1371855771:
-                            bot.send(context,context['message'].replace('我','max'))
-                        elif context['user_id'] == 542154951 or context['user_id'] == 3487973010:
-                            bot.send(context,context['message'].replace('我','red'))
-                        elif context['user_id'] == 1297976315:
-                            bot.send(context,context['message'].replace('我','john'))
-                        elif context['user_id'] == 1213696841:
-                            bot.send(context,context['message'].replace('我','1213'))
-                        elif context['user_id'] == 2510470532:
-                            bot.send(context,context['message'].replace('我','ad'))
-                        elif context['user_id'] == 675571268 or context['user_id'] == 2980503519:
-                            bot.send(context,context['message'].replace('我','指挥官'))
+                        if context['user_id'] == 1181948577 or context['user_id'] == 3563182687:
+                            bot.send(context,context['message'].replace('我',abcgen()))
+                        elif context['user_id'] in repeat_names:
+                            bot.send(context,context['message'].replace('我',repeat_names[context['user_id']]))
                         else:
                             bot.send(context,context['message'].replace('我','你'))
                         logging.logging_repeat_success(context)
