@@ -201,11 +201,11 @@ def time_harusame():
 
 def version():
     info = ['Laffey & Shuvi Bot Engine Under Test',
-            '这个 Bot 的当前版本号: 180709 内部代号:Myst',
+            '这个 Bot 的当前版本号: 180726 内部代号:NekoWorks',
             '更新日志:',
-            '·增加了加密功能，现在你可以使用!laffey encode来加密字符串了',
-            '·修改了几处文本字符串',
-            '·增加了 ICMP Ping 和 Mytraceroute 检测功能，使用 !laffey ping/mtr 体验',
+            '·修正了复读时自动替换人称的设定（感谢@dynos01)',
+            '·修正了几处文本字符串',
+            '·去除了与某bot功能重叠的某些部分',
             '·增加了天气查询功能，可以使用!laffey weather 来查询天气了',
             ]
     return '\n'.join(info)

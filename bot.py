@@ -21,9 +21,9 @@ repeat_names = { 870680559: 'BSY',
                  2980503519: '指挥官',
                  624749918: '阿帕奇' }
 
-a_list =  '吖醃醃厑錒呵吖ア' 
-b_list =  '鉑僰蔢噃秡砵盋ボ' 
-c_list =  '彳瓻卶灻杘伬瘛チ' 
+a_list =  '吖醃醃厑錒呵吖ア啊A' 
+b_list =  '鉑僰蔢噃秡砵盋ボ伯B' 
+c_list =  '彳瓻卶灻杘伬瘛チ吃C' 
 
 def abcgen():
     name = choice(a_list) + choice(b_list) + choice(c_list)
@@ -35,7 +35,7 @@ admins = [675571268,2980503519]
 #检查目录存在性（工作目录以及运行目录）
 no_para.check_dir_existence()
 
-bot = CQHttp(api_root='http://127.0.0.1:5700/',access_token='',)
+bot = CQHttp(api_root='http://127.0.0.1:5700/',access_token='youzhchen99',)
 
 @bot.on_message()
 def handle_msg(context):
@@ -44,7 +44,7 @@ def handle_msg(context):
     #单独提取消息
 
     #如果发送的是群组消息
-    if context['message_type']=='group':
+    if context['message_type'] == 'group':
         group_id = context['group_id']
         conf = r'./config/'+str(group_id)+'.json'
         group_cfg = one_para.read_config(group_id)
@@ -78,13 +78,13 @@ def handle_msg(context):
                                     dic_conf = json.dumps(dict(blacklist=blacklist,repeat=repeat,flag=flag))
                                     f_conf_w.write(dic_conf)
                                     f_conf_w.close()
-                                bot.send(context,'用户:'+number+'已被添加至群组:'+str(group_id)+'的复读黑名单里，该用户将不会被机器人复读。')
+                                bot.send(context ,'用户:'+number+'已被添加至群组:'+str(group_id)+'的复读黑名单里，该用户将不会被机器人复读。')
                         else:
                             logging.logging_bad_type(context)
-                            bot.send(context,'你输入的用户QQ号不是合法的数字。')
+                            bot.send(context ,'你输入的用户QQ号不是合法的数字。')
 
                     elif content.split(' ',3)[2] == 'del' or content.split(' ',3)[2] == '删除':
-                        number = content.split(' ',3)[3]
+                        number = content.split(' ' , 3)[3]
                         if number.isdigit():
                             if number in blacklist:
                                 loc = blacklist.index(number)
@@ -287,7 +287,7 @@ def handle_msg(context):
                             bot.send(context,context['message'].replace('我考','考'+abcgen()).replace('我靠','靠'+abcgen()).replace('我拷','拷'+abcgen()))
                         elif context['user_id'] in repeat_names:
                             #其他在列表中的人
-                            bot.send(context,context['message'].replace('我考','考'+repeat_names[context['user_id']]).replace('我靠','考'+repeat_names[context['user_id']]).replace('我拷','拷'+repeat_names[context['user_id']]))
+                            bot.send(context,context['message'].replace('我考','考'+repeat_names[context['user_id']]).replace('我靠','靠''+repeat_names[context['user_id']]).replace('我拷','拷'+repeat_names[context['user_id']]))
                         else:
                             #一般群员
                             bot.send(context,context['message'].replace('我考','考你').replace('我靠','靠你').replace('我拷','拷你'))
