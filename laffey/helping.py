@@ -1,6 +1,8 @@
 #-*- coding:utf-8 -*-
 #帮助文档查看
-import os,json
+import os, json
+
+
 def Help_for_Single_Command(command):
     '''
     Help_for_Single_Command 函数：
@@ -25,19 +27,24 @@ def Help_for_Single_Command(command):
         help_of_cmd = ('命令:!laffey info\n说明:查看您当前信息。（仅用于调试。）')
     elif command == 'time':
         help_of_cmd = ('命令:!laffey time\n说明:春雨语音报时')
-    elif command == 'blacklist':  
-        help_of_cmd = ('命令:!laffey blacklist\n说明:查询黑名单内容')  
-    elif command == 'repeat':  
+    elif command == 'blacklist':
+        help_of_cmd = ('命令:!laffey blacklist\n说明:查询黑名单内容')
+    elif command == 'repeat':
         help_of_cmd = ('命令:!laffey repeat\n说明:查询复读机频率')
-    elif command == 'weather':  
-        help_of_cmd = ('命令:!laffey weather <地区>\n说明:查询指定地区(目前只支持中国大陆以及港澳台地区)的天气')
+    elif command == 'weather':
+        help_of_cmd = (
+            '命令:!laffey weather <地区>\n说明:查询指定地区(目前只支持中国大陆以及港澳台地区)的天气')
     elif command == 'ping':
-        help_of_cmd = ('命令:!laffey ping <IP/域名>\n说明:从服务器端(DGC香港)到指定 IP/域名的 ICMP Ping 结果')
+        help_of_cmd = (
+            '命令:!laffey ping <IP/域名>\n说明:从服务器端(DGC香港)到指定 IP/域名的 ICMP Ping 结果')
     elif command == 'encode':
-        help_of_cmd = ('命令:!laffey encode <加密方式> <明文>\n说明:加密方式:md5/base64,根据MD5/Base64方式进行加密。')
+        help_of_cmd = (
+            '命令:!laffey encode <加密方式> <明文>\n说明:加密方式:md5/base64,根据MD5/Base64方式进行加密。'
+        )
     elif command == 'mtr':
-        help_of_cmd = ('命令:!laffey mtr <IP/域名>\n说明:从服务器端(DGC香港)到指定 IP/域名的 Mytraceroute 结果')
+        help_of_cmd = (
+            '命令:!laffey mtr <IP/域名>\n说明:从服务器端(DGC香港)到指定 IP/域名的 Mytraceroute 结果'
+        )
     else:
         help_of_cmd = ('你要查询的命令不存在。')
     return help_of_cmd
-
