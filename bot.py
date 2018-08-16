@@ -1,12 +1,8 @@
 # -*- coding:utf-8 -*- #
 
-import time
-import os
 import urllib
-from random import choice, randint
-from cqhttp_helper import CQHttp, Error
-from bs4 import BeautifulSoup
-import requests
+from random import choice
+from cqhttp_helper import CQHttp
 import json
 import urllib.parse
 from laffey import one_para, no_para, two_paras, logging, helping, weather, network_tools, encrypt
