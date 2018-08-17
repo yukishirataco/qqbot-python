@@ -239,10 +239,11 @@ def handle_msg(context):
                     bot.send(context, result)
 
             elif content.split(' ', 2)[1] == 'google':
+                #由于谷歌在阿里云服务器上被墙，无法访问，所以这个命令也是无法访问的
                 try:
                     word = content.split(' ', 2)[2]
                 except IndexError:
-                    #没有提供指令的时候raise IndexError，被捕捉到了。
+                #没有提供指令的时候raise IndexError，被捕捉到了。
                     logging.logging_error_empty_parameter(context)
                     bot.send(context,
                              '请提供Google搜索词\n指令格式:!laffey google <搜索关键词>')
@@ -252,6 +253,7 @@ def handle_msg(context):
                     bot.send(context, result)
 
             elif content.split(' ', 2)[1] == 'booru':
+                #Gelbooru同理
                 #Gelbooru爬虫精简版，来自Ecchibot
                 tags = content.split(' ', 2)[2]
                 return_data = one_para.booru(tags)

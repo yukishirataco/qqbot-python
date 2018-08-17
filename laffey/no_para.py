@@ -96,33 +96,33 @@ def laffey_speaks():
     inde = randint(0, len(speak_lib) - 1)
     return_list['string'] = speak_lib[inde]
     if inde == 0:
-        return_list['voice_link'] = "login.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/5/53/%E6%8B%89%E8%8F%B2login.mp3"
     elif inde == 1:
-        return_list['voice_link'] = "mvp.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/9/97/%E6%8B%89%E8%8F%B2mvp.mp3"
     elif inde == 2:
-        return_list['voice_link'] = "touch_head.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/a/af/%E6%8B%89%E8%8F%B2touch_head.mp3"
     elif inde == 3:
-        return_list['voice_link'] = "detail.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/a/a4/%E6%8B%89%E8%8F%B2detail.mp3"
     elif inde == 4:
-        return_list['voice_link'] = "upgrade.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/9/91/%E6%8B%89%E8%8F%B2upgrade.mp3"
     elif inde == 5:
-        return_list['voice_link'] = "main1.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/f/fe/%E6%8B%89%E8%8F%B2main1.mp3"
     elif inde == 6:
-        return_list['voice_link'] = "main2.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/c/c9/%E6%8B%89%E8%8F%B2main2.mp3"
     elif inde == 7:
-        return_list['voice_link'] = "main3.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/7/7b/%E6%8B%89%E8%8F%B2main3.mp3"
     elif inde == 8:
-        return_list['voice_link'] = "main4.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/d/db/%E6%8B%89%E8%8F%B2main4.mp3"
     elif inde == 9:
-        return_list['voice_link'] = "main5.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/2/29/%E6%8B%89%E8%8F%B2main5.mp3"
     elif inde == 10:
-        return_list['voice_link'] = "main6.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/0/07/%E6%8B%89%E8%8F%B2main6.mp3"
     elif inde == 11:
-        return_list['voice_link'] = "skill.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/6/6a/%E6%8B%89%E8%8F%B2skill.mp3"
     elif inde == 12:
-        return_list['voice_link'] = "touch1.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/0/0a/%E6%8B%89%E8%8F%B2touch1.mp3"
     elif inde == 13:
-        return_list['voice_link'] = "touch2.mp3"
+        return_list['voice_link'] = "https://img.moegirl.org/common/e/e0/%E6%8B%89%E8%8F%B2touch2.mp3"
     return return_list
 
 
@@ -220,11 +220,10 @@ def time_harusame():
 def version():
     info = [
         'Laffey & Shuvi Bot Engine Under Test',
-        '这个 Bot 的当前版本号: 180726 内部代号:NekoWorks',
+        '这个 Bot 的当前版本号: 180817 内部代号:Poki',
         '更新日志:',
-        '·修正了复读时自动替换人称的设定（感谢@dynos01)',
+        '·服务器移至阿里云（深圳）服务器，今后的连接将会更加稳定',
         '·修正了几处文本字符串',
-        '·去除了与某bot功能重叠的某些部分',
-        '·增加了天气查询功能，可以使用!laffey weather 来查询天气了',
+        '·移除了由于GFW原因而无法使用的几个功能',
     ]
     return '\n'.join(info)

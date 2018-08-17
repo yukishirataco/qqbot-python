@@ -13,7 +13,7 @@ def ping_test(addr):
         output = subprocess.check_output(cmd)
         output_s = str(output, 'gbk')
     except subprocess.CalledProcessError:
-        return ('\n用时:' + str(round(time.time() - past_time)) +
+        return ('用时:' + str(round(time.time() - past_time)) +
                 's\n域名/IP {0} 无法连接'.format(cmd[-1]))
     else:
         return (output_s.splitlines()[-1].replace(
@@ -29,4 +29,4 @@ def mtr(addr):
     #将MTR强行走IPv4
     output = subprocess.check_output(cmd)
     output_s = str(output, 'gbk')
-    return (output_s + '用时:' + str(round(time.time() - past_time)) + 's')
+    return ('mtr完成，用时:' + str(round(time.time() - past_time)) + 's' + '\n' + output_s )
