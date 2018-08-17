@@ -238,6 +238,7 @@ def handle_msg(context):
                     #用 URLLib 处理 Baidu 搜索关键词，将其编码成 URL 编码
                     bot.send(context, result)
 
+            '''
             elif content.split(' ', 2)[1] == 'google':
                 #由于谷歌在阿里云服务器上被墙，无法访问，所以这个命令也是无法访问的
                 try:
@@ -252,6 +253,7 @@ def handle_msg(context):
                     result = one_para.google(word)
                     bot.send(context, result)
 
+            
             elif content.split(' ', 2)[1] == 'booru':
                 #Gelbooru同理
                 #Gelbooru爬虫精简版，来自Ecchibot
@@ -264,6 +266,7 @@ def handle_msg(context):
                         "file": return_data['link']
                     }
                 }])
+            '''
 
             elif content.split(' ', 2)[1] == 'help' or content.split(
                     ' ', 2)[1] == '帮助':
