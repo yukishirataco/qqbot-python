@@ -15,14 +15,6 @@ def Help_for_Single_Command(command):
         help_of_cmd = ('命令帮助:英文格式:!laffey version\n中文格式:\n说明:显示这个bot的内部版本号.')
     elif command == 'baidu':
         help_of_cmd = ('命令:!laffey baidu <内容>\n说明:百度搜索，返回搜索链接和结果数量。')
-    '''
-    elif command == 'google':
-        help_of_cmd = ('命令:!laffey google <内容>\n说明:Google搜索，返回搜索链接和结果数量。')
-    elif command == 'pixiv':
-        help_of_cmd = ('命令:!laffey pixiv <内容>\n说明:Pixiv，返回图片链接（需登录）。')
-    elif command == 'booru':
-        help_of_cmd = ('命令:!laffey booru <tags>\n说明:Gelbooru,返回随机一张图的链接。')
-    '''
     elif command == '女装':
         help_of_cmd = ('命令:!laffey 女装 <QQ号>\n说明:女装的作用是相互的哦。')
     elif command == 'info':

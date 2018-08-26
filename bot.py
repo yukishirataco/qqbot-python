@@ -2,7 +2,7 @@
 
 import urllib
 from random import choice
-from cqhttp_helper import CQHttp
+from cqhttp import CQHttp
 import json
 import urllib.parse
 from laffey import one_para, no_para, two_paras, logging, helping, weather, network_tools, encrypt
@@ -238,7 +238,7 @@ def handle_msg(context):
                     #用 URLLib 处理 Baidu 搜索关键词，将其编码成 URL 编码
                     bot.send(context, result)
 
-            '''
+            
             elif content.split(' ', 2)[1] == 'google':
                 #由于谷歌在阿里云服务器上被墙，无法访问，所以这个命令也是无法访问的
                 try:
@@ -266,17 +266,15 @@ def handle_msg(context):
                         "file": return_data['link']
                     }
                 }])
-            '''
+            
 
-            elif content.split(' ', 2)[1] == 'help' or content.split(
-                    ' ', 2)[1] == '帮助':
+            elif content.split(' ', 2)[1] == 'help' or content.split(' ', 2)[1] == '帮助':
                 try:
                     command = content.split(' ', 2)[2]
                 except IndexError:
                     #没有提供指令的时候raise IndexError，被捕捉到了。
                     logging.logging_error_empty_parameter(context)
-                    bot.send(context,
-                             '没有提供需要查询帮助的指令\n用法:!laffey help <需要查询帮助的指令名字>')
+                    bot.send(context,'没有提供需要查询帮助的指令\n用法:!laffey help <需要查询帮助的指令名字>')
                 else:
                     helps = helping.Help_for_Single_Command(command)
                     bot.send(context, helps)
