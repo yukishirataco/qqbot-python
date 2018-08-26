@@ -15,12 +15,14 @@ def Help_for_Single_Command(command):
         help_of_cmd = ('命令帮助:英文格式:!laffey version\n中文格式:\n说明:显示这个bot的内部版本号.')
     elif command == 'baidu':
         help_of_cmd = ('命令:!laffey baidu <内容>\n说明:百度搜索，返回搜索链接和结果数量。')
+    '''
     elif command == 'google':
         help_of_cmd = ('命令:!laffey google <内容>\n说明:Google搜索，返回搜索链接和结果数量。')
     elif command == 'pixiv':
         help_of_cmd = ('命令:!laffey pixiv <内容>\n说明:Pixiv，返回图片链接（需登录）。')
     elif command == 'booru':
         help_of_cmd = ('命令:!laffey booru <tags>\n说明:Gelbooru,返回随机一张图的链接。')
+    '''
     elif command == '女装':
         help_of_cmd = ('命令:!laffey 女装 <QQ号>\n说明:女装的作用是相互的哦。')
     elif command == 'info':
@@ -36,14 +38,14 @@ def Help_for_Single_Command(command):
             '命令:!laffey weather <地区>\n说明:查询指定地区(目前只支持中国大陆以及港澳台地区)的天气')
     elif command == 'ping':
         help_of_cmd = (
-            '命令:!laffey ping <IP/域名>\n说明:从服务器端(DGC香港)到指定 IP/域名的 ICMP Ping 结果')
+            '命令:!laffey ping <IP/域名>\n说明:从服务器端(阿里云深圳)到指定 IP/域名的 ICMP Ping 结果')
     elif command == 'encode':
         help_of_cmd = (
             '命令:!laffey encode <加密方式> <明文>\n说明:加密方式:md5/base64,根据MD5/Base64方式进行加密。'
         )
     elif command == 'mtr':
         help_of_cmd = (
-            '命令:!laffey mtr <IP/域名>\n说明:从服务器端(DGC香港)到指定 IP/域名的 Mytraceroute 结果'
+            '命令:!laffey mtr <IP/域名>\n说明:从服务器端(阿里云深圳)到指定 IP/域名的 Mytraceroute 结果'
         )
     else:
         help_of_cmd = ('你要查询的命令不存在。')
