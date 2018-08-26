@@ -354,7 +354,7 @@ def handle_msg(context):
                 except IndexError:
                     logging.logging_error_empty_parameter(context)
                     bot.send(context,
-                             '请输入您要检测连通性的IP/域名\n指令格式:!laffey ping <IP/域名>')
+                             '请输入您要检测墙内连通性的IP/域名\n指令格式:!laffey ping <IP/域名>')
                 else:
                     result = network_tools.ping_test(addr)
                     bot.send(context, result)
@@ -438,11 +438,12 @@ def handle_msg(context):
                     else:
                         #针对不同的人替换到不同的内容
                         if context['user_id'] == 1181948577 or context['user_id'] == 3563182687:
-                            bot.send(context, context['message'].replace(
+                            #某人专用
+                            bot.send(context, context['message'].replace('我们','你们').replace(
                                 '我', abcgen()))
                         elif context['user_id'] in repeat_names:
                             bot.send(
-                                context, context['message'].replace(
+                                context, context['message'].replace('我们','你们').replace(
                                     '我', repeat_names[context['user_id']]))
                         else:
                             bot.send(context, context['message'].replace(
