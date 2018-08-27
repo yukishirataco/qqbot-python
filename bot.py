@@ -238,13 +238,12 @@ def handle_msg(context):
                     #用 URLLib 处理 Baidu 搜索关键词，将其编码成 URL 编码
                     bot.send(context, result)
 
-            
             elif content.split(' ', 2)[1] == 'google':
                 #由于谷歌在阿里云服务器上被墙，无法访问，所以这个命令也是无法访问的
                 try:
                     word = content.split(' ', 2)[2]
                 except IndexError:
-                #没有提供指令的时候raise IndexError，被捕捉到了。
+                    #没有提供指令的时候raise IndexError，被捕捉到了。
                     logging.logging_error_empty_parameter(context)
                     bot.send(context,
                              '请提供Google搜索词\n指令格式:!laffey google <搜索关键词>')
@@ -253,7 +252,6 @@ def handle_msg(context):
                     result = one_para.google(word)
                     bot.send(context, result)
 
-            
             elif content.split(' ', 2)[1] == 'booru':
                 #Gelbooru同理
                 #Gelbooru爬虫精简版，来自Ecchibot
@@ -266,15 +264,16 @@ def handle_msg(context):
                         "file": return_data['link']
                     }
                 }])
-            
 
-            elif content.split(' ', 2)[1] == 'help' or content.split(' ', 2)[1] == '帮助':
+            elif content.split(' ', 2)[1] == 'help' or content.split(
+                    ' ', 2)[1] == '帮助':
                 try:
                     command = content.split(' ', 2)[2]
                 except IndexError:
                     #没有提供指令的时候raise IndexError，被捕捉到了。
                     logging.logging_error_empty_parameter(context)
-                    bot.send(context,'没有提供需要查询帮助的指令\n用法:!laffey help <需要查询帮助的指令名字>')
+                    bot.send(context,
+                             '没有提供需要查询帮助的指令\n用法:!laffey help <需要查询帮助的指令名字>')
                 else:
                     helps = helping.Help_for_Single_Command(command)
                     bot.send(context, helps)
@@ -437,12 +436,14 @@ def handle_msg(context):
                         #针对不同的人替换到不同的内容
                         if context['user_id'] == 1181948577 or context['user_id'] == 3563182687:
                             #某人专用
-                            bot.send(context, context['message'].replace('我们','你们').replace(
-                                '我', abcgen()))
+                            bot.send(
+                                context, context['message'].replace(
+                                    '我们', '你们').replace('我', abcgen()))
                         elif context['user_id'] in repeat_names:
                             bot.send(
-                                context, context['message'].replace('我们','你们').replace(
-                                    '我', repeat_names[context['user_id']]))
+                                context, context['message'].replace(
+                                    '我们', '你们').replace(
+                                        '我', repeat_names[context['user_id']]))
                         else:
                             bot.send(context, context['message'].replace(
                                 '我', '你'))

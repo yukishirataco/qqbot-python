@@ -1,6 +1,7 @@
 import shlex
 import subprocess
 import time
+import socket
 
 
 def ping_test(addr):
@@ -30,3 +31,8 @@ def mtr(addr):
     output = subprocess.check_output(cmd)
     output_s = str(output, 'gbk')
     return ('mtr完成，用时:' + str(round(time.time() - past_time)) + 's' + '\n' + output_s )
+
+def query_dns(address):
+    return socket.gethostbyname(address)
+
+
