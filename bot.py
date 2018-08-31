@@ -251,6 +251,19 @@ def handle_msg(context):
                     word = urllib.parse.quote(word)
                     result = one_para.google(word)
                     bot.send(context, result)
+            
+                elif content.split(' ', 2)[1] == 'check':
+                #使用ipcheck.need.sh API查询域名的ICMP和TCP连通性
+                try:
+                    word = content.split(' ', 2)[2]
+                except IndexError:
+                    #没有提供指令的时候raise IndexError，被捕捉到了。
+                    logging.logging_error_empty_parameter(context)
+                    bot.send(context,
+                             '请提供要查询的域名!\n指令格式:!laffey check <待查询连通性域名/IP地址>')
+                else:
+                    result = network_tools.ip_check_gfwed(word)
+                    bot.send(context, result)
 
             elif content.split(' ', 2)[1] == 'booru':
                 #Gelbooru同理
