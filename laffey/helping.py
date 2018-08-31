@@ -39,6 +39,11 @@ def Help_for_Single_Command(command):
         help_of_cmd = (
             '命令:!laffey mtr <IP/域名>\n说明:从服务器端(阿里云深圳)到指定 IP/域名的 Mytraceroute 结果'
         )
+    elif command == 'check':
+        help_of_cmd = (
+            '命令:!laffey check <IP/域名>\n说明:使用 ipcheck.need.sh API查询域名的连通性'
+        )
     else:
+
         help_of_cmd = ('你要查询的命令不存在。')
     return help_of_cmd

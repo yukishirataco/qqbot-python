@@ -251,8 +251,8 @@ def handle_msg(context):
                     word = urllib.parse.quote(word)
                     result = one_para.google(word)
                     bot.send(context, result)
-            
-                elif content.split(' ', 2)[1] == 'check':
+
+            elif content.split(' ', 2)[1] == 'check':
                 #使用ipcheck.need.sh API查询域名的ICMP和TCP连通性
                 try:
                     word = content.split(' ', 2)[2]
