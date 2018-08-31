@@ -5,7 +5,7 @@ from random import choice
 from cqhttp import CQHttp
 import json
 import urllib.parse
-from laffey import one_para, no_para, two_paras, logging, helping, weather, network_tools, encrypt
+from laffey import one_para, no_para, two_paras, logrec, helping, weather, network_tools, encrypt
 
 repeat_names = {
     870680559: 'BSY',
@@ -58,7 +58,7 @@ def handle_msg(context):
         repeat = group_cfg['repeat']
         flag = group_cfg['flag']
         if content.split()[0] == '!laffey' or content.split()[0] == '！拉菲':
-            logging.logging_command(context)
+            logrec.logging_command(context)
             if context['user_id'] in admins:
                 #管理指令
                 if content.split(' ', 1)[1] == 'touch' or content.split(
@@ -103,7 +103,7 @@ def handle_msg(context):
                                     context, '用户:' + number + '已被添加至群组:' +
                                     str(group_id) + '的复读黑名单里，该用户将不会被机器人复读。')
                         else:
-                            logging.logging_bad_type(context)
+                            logrec.logging_bad_type(context)
                             bot.send(context, '你输入的用户QQ号不是合法的数字。')
 
                     elif content.split(' ', 3)[2] == 'del' or content.split(
@@ -130,7 +130,7 @@ def handle_msg(context):
                                     '用户不存在，请查看是否有输入错误。\n指令的格式为:!laffey blacklist del <QQ>'
                                 )
                         else:
-                            logging.logging_bad_type(context)
+                            logrec.logging_bad_type(context)
                             bot.send(context, '你的输入有误，数据不是合法数字。')
 
                 elif content.split(' ', 3)[1] == 'repeat' or content.split(
@@ -164,7 +164,7 @@ def handle_msg(context):
                         times = int(content.split(' ', 3)[2])
                         text = content.split(' ', 3)[3]
                     except:
-                        logging.logging_error_empty_parameter(context)
+                        logrec.logging_error_empty_parameter(context)
                         bot.send(
                             context,
                             '指令出错，您输入的参数有一项或者是两项为空\n正确用法:\n!laffey flow <重复次数> <重复消息（只支持文字）>'
@@ -230,7 +230,7 @@ def handle_msg(context):
                     word = content.split(' ', 2)[2]
                 except IndexError:
                     #没有提供指令的时候raise IndexError，被捕捉到了。
-                    logging.logging_error_empty_parameter(context)
+                    logrec.logging_error_empty_parameter(context)
                     bot.send(context, '请提供百度搜索词\n指令格式:!laffey baidu <搜索关键词>')
                 else:
                     word = urllib.parse.quote(word)
@@ -244,7 +244,7 @@ def handle_msg(context):
                     word = content.split(' ', 2)[2]
                 except IndexError:
                     #没有提供指令的时候raise IndexError，被捕捉到了。
-                    logging.logging_error_empty_parameter(context)
+                    logrec.logging_error_empty_parameter(context)
                     bot.send(context,
                              '请提供Google搜索词\n指令格式:!laffey google <搜索关键词>')
                 else:
@@ -258,7 +258,7 @@ def handle_msg(context):
                     word = content.split(' ', 2)[2]
                 except IndexError:
                     #没有提供指令的时候raise IndexError，被捕捉到了。
-                    logging.logging_error_empty_parameter(context)
+                    logrec.logging_error_empty_parameter(context)
                     bot.send(context,
                              '请提供要查询的域名!\n指令格式:!laffey check <待查询连通性域名/IP地址>')
                 else:
@@ -284,7 +284,7 @@ def handle_msg(context):
                     command = content.split(' ', 2)[2]
                 except IndexError:
                     #没有提供指令的时候raise IndexError，被捕捉到了。
-                    logging.logging_error_empty_parameter(context)
+                    logrec.logging_error_empty_parameter(context)
                     bot.send(context,
                              '没有提供需要查询帮助的指令\n用法:!laffey help <需要查询帮助的指令名字>')
                 else:
@@ -296,7 +296,7 @@ def handle_msg(context):
                 try:
                     target = content.split(' ', 3)[2]
                 except IndexError:
-                    logging.logging_error_empty_parameter(context)
+                    logrec.logging_error_empty_parameter(context)
                     bot.send(context, [{
                         "type": "at",
                         "data": {
@@ -336,7 +336,7 @@ def handle_msg(context):
                     types = content.split(' ', 3)[2]
                     times = content.split(' ', 3)[3]
                 except IndexError:
-                    logging.logging_error_empty_parameter(context)
+                    logrec.logging_error_empty_parameter(context)
                     bot.send(
                         context,
                         '你提供的参数不完整，\n抽奖卡池:碧蓝航线日常建造\n使用方法:\n!laffey roll <抽卡类型(l/h/s)> <抽卡次数(最大10次)>'
@@ -350,7 +350,7 @@ def handle_msg(context):
                 try:
                     citi = content.split(' ', 2)[2]
                 except IndexError:
-                    logging.logging_error_empty_parameter(context)
+                    logrec.logging_error_empty_parameter(context)
                     bot.send(
                         context,
                         '请输入您要查询的城市(仅可以查询中国大陆以及港澳台地区)\n指令格式:!laffey weather <地区>'
@@ -362,7 +362,7 @@ def handle_msg(context):
                 try:
                     addr = content.split(' ', 2)[2]
                 except IndexError:
-                    logging.logging_error_empty_parameter(context)
+                    logrec.logging_error_empty_parameter(context)
                     bot.send(context,
                              '请输入您要检测墙内连通性的IP/域名\n指令格式:!laffey ping <IP/域名>')
                 else:
@@ -373,7 +373,7 @@ def handle_msg(context):
                 try:
                     addr = content.split(' ', 2)[2]
                 except IndexError:
-                    logging.logging_error_empty_parameter(context)
+                    logrec.logging_error_empty_parameter(context)
                     bot.send(
                         context,
                         '请输入您要查询MyTraceRoute结果的IP/域名\n由于网络连接问题，这个指令可能需要比较久的时间才能返回\n指令格式:!laffey mtr <IP/域名>'
@@ -388,7 +388,7 @@ def handle_msg(context):
                     entype = content.split(' ', 3)[2]
                     mingw = content.split(' ', 3)[3]
                 except IndexError:
-                    logging.logging_error_empty_parameter(context)
+                    logrec.logging_error_empty_parameter(context)
                     bot.send(
                         context,
                         '指令不完整，完整的指令格式为:\n!laffey encode <加密方式>(可选:md5,base64) <明文>'
@@ -414,7 +414,7 @@ def handle_msg(context):
                     pass
                 elif '我考' in content or '我靠' in content or '我拷' in content:
                     if str(context['user_id']) in blacklist:
-                        logging.logging_repeat_failure(context)
+                        logrec.logging_repeat_failure(context)
                     else:
                         #素质！素质！
                         if context['user_id'] == 1181948577 or context['user_id'] == 3563182687:
@@ -441,10 +441,10 @@ def handle_msg(context):
                                 context, context['message'].replace(
                                     '我考', '考你').replace('我靠', '靠你').replace(
                                         '我拷', '拷你'))
-                        logging.logging_repeat_success(context)
+                        logrec.logging_repeat_success(context)
                 else:
                     if str(context['user_id']) in blacklist:
-                        logging.logging_repeat_failure(context)
+                        logrec.logging_repeat_failure(context)
                     else:
                         #针对不同的人替换到不同的内容
                         if context['user_id'] == 1181948577 or context['user_id'] == 3563182687:
@@ -460,7 +460,7 @@ def handle_msg(context):
                         else:
                             bot.send(context, context['message'].replace(
                                 '我', '你'))
-                        logging.logging_repeat_success(context)
+                        logrec.logging_repeat_success(context)
 
 
 bot.run(host='127.0.0.1', port=8080)

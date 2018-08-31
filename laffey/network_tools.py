@@ -44,23 +44,36 @@ def ip_check_gfwed(host):
     ipaddr = socket.gethostbyname(host)
     #先从本地解析域名到DNS记录
     query_url = 'https://ipcheck.need.sh/api_v2.php?ip='
-    content = requests.get(url=query_url + ipaddr)
-    result = content.json()
-    #从 ipcheck.need.sh 的API获取数据
-    icmp_outside_gfw = str(
-        result.get('data')['outside_gfw']['icmp']['alive']).replace(
-            'True', '回应').replace('False', '无回应')
-    tcp_outside_gfw = str(
-        result.get('data')['outside_gfw']['tcp']['alive']).replace(
-            'True', '回应').replace('False', '无回应')
-    icmp_inside_gfw = str(
-        result.get('data')['inside_gfw']['icmp']['alive']).replace(
-            'True', '回应').replace('False', '无回应')
-    tcp_inside_gfw = str(
-        result.get('data')['inside_gfw']['tcp']['alive']).replace(
-            'True', '回应').replace('False', '无回应')
-    #处理数据
-    return (
-        '目标的IP地址:' + ipaddr + '\n' + '墙外连通性测试原始结果如下:\nICMP:' + icmp_outside_gfw
-        + ' TCP:' + tcp_outside_gfw + '\n' + '墙内连通性测试原始结果如下:\nICMP:' +
-        icmp_inside_gfw + ' TCP:' + tcp_inside_gfw)
+    try:
+        content = requests.get(url=query_url + ipaddr)
+    except requests.exceptions.Timeout:
+        return 'TimeoutError'
+    except requests.exceptions.ConnectionError:
+        return 'ConnectionError'
+    except requests.exceptions.HTTPError:
+        return 'HTTPError'
+    except requests.exceptions.TooManyRedirects:
+        return 'TooManyRedirects'
+    except:
+        return 'OtherError'
+    else:
+        if content.status_code == 200 and content.json():
+            result = content.json()
+            #从 ipcheck.need.sh 的API获取数据
+            icmp_outside_gfw = str(
+                result.get('data')['outside_gfw']['icmp']['alive']).replace(
+                    'True', '回应').replace('False', '无回应')
+            tcp_outside_gfw = str(
+                result.get('data')['outside_gfw']['tcp']['alive']).replace(
+                    'True', '回应').replace('False', '无回应')
+            icmp_inside_gfw = str(
+                result.get('data')['inside_gfw']['icmp']['alive']).replace(
+                    'True', '回应').replace('False', '无回应')
+            tcp_inside_gfw = str(
+                result.get('data')['inside_gfw']['tcp']['alive']).replace(
+                    'True', '回应').replace('False', '无回应')
+            #处理数据
+            return (
+                '目标的IP地址:' + ipaddr + '\n' + '墙外连通性测试原始结果如下:\nICMP:' + icmp_outside_gfw
+                + ' TCP:' + tcp_outside_gfw + '\n' + '墙内连通性测试原始结果如下:\nICMP:' +
+                icmp_inside_gfw + ' TCP:' + tcp_inside_gfw)
