@@ -409,7 +409,7 @@ def handle_msg(context):
             #非指令判定复读
             if choice(range(0, 100)) > 100 - repeat:
                 #当概率大于复读频率时
-                if content[0] == '!' or "next time" in content:
+                if content[0] == '!' or "next time" in content or '[CQ:image,' in content:
                     #防止触发kjBot和自动禁言指令
                     pass
                 elif '我考' in content or '我靠' in content or '我拷' in content:
