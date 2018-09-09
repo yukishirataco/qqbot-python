@@ -26,6 +26,7 @@ c_list = '彳瓻卶灻杘伬瘛チ吃C'
 
 
 def abcgen():
+    #阿伯吃姓名替换生成器，仅供娱乐系列
     name = choice(a_list) + choice(b_list) + choice(c_list)
     return name
 

@@ -73,7 +73,9 @@ def ip_check_gfwed(host):
                 result.get('data')['inside_gfw']['tcp']['alive']).replace(
                     'True', '回应').replace('False', '无回应')
             #处理数据
+            if tcp_inside_gfw == '无回应' and icmp_inside_gfw == '回应':
+                stat = '当前域名/IP地址可能已经被屏蔽，或者未开启TCP检测，阻断方式:TCP阻断'
             return (
                 '目标的IP地址:' + ipaddr + '\n' + '墙外连通性测试原始结果如下:\nICMP:' + icmp_outside_gfw
                 + ' TCP:' + tcp_outside_gfw + '\n' + '墙内连通性测试原始结果如下:\nICMP:' +
-                icmp_inside_gfw + ' TCP:' + tcp_inside_gfw)
+                icmp_inside_gfw + ' TCP:' + tcp_inside_gfw + '\n' + stat)
