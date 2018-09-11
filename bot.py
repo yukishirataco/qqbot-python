@@ -47,28 +47,27 @@ bot = CQHttp(
 def handle_msg(context):
     global blacklist, repeat
     content = context['message']
-    #单独提取消息
-
-    #如果发送的是群组消息
+    # 单独提取消息
+    # 如果发送的是群组消息
     if context['message_type'] == 'group':
         group_id = context['group_id']
         conf = r'./config/' + str(group_id) + '.json'
         group_cfg = one_para.read_config(group_id)
-        #读取配置文件
+        # 读取配置文件
         blacklist = group_cfg['blacklist']
         repeat = group_cfg['repeat']
         flag = group_cfg['flag']
         if content.split()[0] == '!laffey' or content.split()[0] == '！拉菲':
             logrec.logging_command(context)
             if context['user_id'] in admins:
-                #管理指令
+                # 管理指令
                 if content.split(' ', 1)[1] == 'touch' or content.split(
                         ' ', 1)[1] == '摸摸':
                     bot.send(context, '唔……嗯……糟了，站着睡着了')
 
                 elif content.split(' ', 1)[1] == 'speak' or content.split(
                         ' ', 1)[1] == '说话':
-                    #管理员指令，拉菲语言库（语音需要Cool Q Pro)
+                    # 管理员指令，拉菲语言库（语音需要Cool Q Pro)
                     return_data = no_para.laffey_speaks()
                     bot.send(context, return_data['string'])
                     bot.send(context, [{
@@ -80,7 +79,7 @@ def handle_msg(context):
 
                 elif content.split(' ', 3)[1] == 'blacklist' or content.split(
                         ' ', 3)[1] == '黑名单':
-                    #管理黑名单。
+                    # 管理黑名单。
                     if content.split(' ', 3)[2] == 'add' or content.split(
                             ' ', 3)[2] == '添加':
                         number = content.split(' ', 3)[3]
@@ -155,7 +154,7 @@ def handle_msg(context):
 
                 elif content.split(' ', 1)[1] == 'status' or content.split(
                         ' ', 1)[1] == '状态':
-                    #管理员指令，查看服务器运行状态。
+                    # 管理员指令，查看服务器运行状态。
                     status = no_para.system_status()
                     bot.send(context, status)
 
@@ -164,7 +163,7 @@ def handle_msg(context):
                     try:
                         times = int(content.split(' ', 3)[2])
                         text = content.split(' ', 3)[3]
-                    except:
+                    except IndexError:
                         logrec.logging_error_empty_parameter(context)
                         bot.send(
                             context,
@@ -230,7 +229,7 @@ def handle_msg(context):
                 try:
                     word = content.split(' ', 2)[2]
                 except IndexError:
-                    #没有提供指令的时候raise IndexError，被捕捉到了。
+                    # 没有提供指令的时候raise IndexError，被捕捉到了。
                     logrec.logging_error_empty_parameter(context)
                     bot.send(context, '请提供百度搜索词\n指令格式:!laffey baidu <搜索关键词>')
                 else:
@@ -407,26 +406,26 @@ def handle_msg(context):
             else:
                 pass
         else:
-            #非指令判定复读
+            # 非指令判定复读
             if choice(range(0, 100)) > 100 - repeat:
-                #当概率大于复读频率时
+                # 当概率大于复读频率时
                 if content[0] == '!' or "next time" in content or '[CQ:image,' in content:
-                    #防止触发kjBot和自动禁言指令
+                    # 防止触发kjBot和自动禁言指令
                     pass
                 elif '我考' in content or '我靠' in content or '我拷' in content:
                     if str(context['user_id']) in blacklist:
                         logrec.logging_repeat_failure(context)
                     else:
-                        #素质！素质！
+                        # 素质！素质！
                         if context['user_id'] == 1181948577 or context['user_id'] == 3563182687:
-                            #ABCDE11819专用
+                            # ABCDE11819专用
                             bot.send(
                                 context, context['message'].replace(
                                     '我考', '考' + abcgen()).replace(
                                         '我靠', '靠' + abcgen()).replace(
                                             '我拷', '拷' + abcgen()))
                         elif context['user_id'] in repeat_names:
-                            #其他在列表中的人
+                            # 其他在列表中的人
                             bot.send(
                                 context, context['message'].replace(
                                     '我考', '考' +
@@ -437,7 +436,7 @@ def handle_msg(context):
                                     '我拷',
                                     '拷' + repeat_names[context['user_id']]))
                         else:
-                            #一般群员
+                            # 一般群员
                             bot.send(
                                 context, context['message'].replace(
                                     '我考', '考你').replace('我靠', '靠你').replace(
@@ -447,9 +446,9 @@ def handle_msg(context):
                     if str(context['user_id']) in blacklist:
                         logrec.logging_repeat_failure(context)
                     else:
-                        #针对不同的人替换到不同的内容
+                        # 针对不同的人替换到不同的内容
                         if context['user_id'] == 1181948577 or context['user_id'] == 3563182687:
-                            #某人专用
+                            # 某人专用
                             bot.send(
                                 context, context['message'].replace(
                                     '我们', '你们').replace('我', abcgen()))
@@ -462,7 +461,11 @@ def handle_msg(context):
                             bot.send(context, context['message'].replace(
                                 '我', '你'))
                         logrec.logging_repeat_success(context)
+    elif context['message_type'] == 'private':
+        # 如果接收到的是私聊消息
+        if context['user_id'] in admins:
+            pass
 
 
 bot.run(host='127.0.0.1', port=8080)
-#启动Bot
+# 启动Bot
