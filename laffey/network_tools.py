@@ -42,7 +42,7 @@ def query_dns(address):
 
 def ip_check_gfwed(host):
     ipaddr = socket.gethostbyname(host)
-    #先从本地解析域名到DNS记录
+    # 先从本地解析域名到DNS记录
     query_url = 'https://ipcheck.need.sh/api_v2.php?ip='
     try:
         content = requests.get(url=query_url + ipaddr)
@@ -75,6 +75,10 @@ def ip_check_gfwed(host):
             #处理数据
             if tcp_inside_gfw == '无回应' and icmp_inside_gfw == '回应':
                 stat = '当前域名/IP地址可能已经被屏蔽，或者未开启TCP检测，阻断方式:TCP阻断'
+            elif tcp_inside_gfw == '无回应' and icmp_inside_gfw == '无回应':
+                stat = '当前域名/IP地址可能已经被屏蔽，或者未开启TCP与ICMP检测，阻断方式:IP阻断'
+            else:
+                stat = '访问正常'
             return (
                 '目标的IP地址:' + ipaddr + '\n' + '墙外连通性测试原始结果如下:\nICMP:' + icmp_outside_gfw
                 + ' TCP:' + tcp_outside_gfw + '\n' + '墙内连通性测试原始结果如下:\nICMP:' +

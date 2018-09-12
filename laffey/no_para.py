@@ -234,9 +234,12 @@ def time_harusame():
 def version():
     info = [
         'Laffey & Shuvi Bot Engine Under Test',
-        '这个 Bot 的当前版本号: 180831 内部代号:Quin',
+        '这个 Bot 的当前版本号: 180912 内部代号:Quin',
         '更新日志:',
-        '·新增 ipcheck.need.sh API 域名连通性查询功能，使用!laffey check体验',
+        '·使用WSGI重新构建了Bot的启动代码，现在除非是由于网络问题，',
+        '·对Bot需要耗时的请求将不会再卡顿',
         '·修正了几处文本字符串',
+        '·本项目现已发布隐私协议，详情请登录:',
+        '·https://github.com/npfjcg/qqbot-python 查看。'
     ]
     return '\n'.join(info)

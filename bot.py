@@ -6,6 +6,7 @@ from cqhttp import CQHttp
 import json
 import urllib.parse
 from laffey import one_para, no_para, two_paras, logrec, helping, weather, network_tools, encrypt
+import wsgiserver
 
 repeat_names = {
     870680559: 'BSY',
@@ -35,13 +36,11 @@ admins = [675571268, 2980503519]
 #可以直接使用bot管理指令的Admin名单
 
 #检查目录存在性（工作目录以及运行目录）
-no_para.check_dir_existence()
 
 bot = CQHttp(
     api_root='http://127.0.0.1:5700/',
     access_token='',
 )
-
 
 @bot.on_message()
 def handle_msg(context):
@@ -467,5 +466,14 @@ def handle_msg(context):
             pass
 
 
-bot.run(host='127.0.0.1', port=8080)
+# 测试环境:bot.run(host='127.0.0.1', port=8080)
 # 启动Bot
+app = bot.wsgi
+server = wsgiserver.WSGIServer(app,host='127.0.0.1',port=8888)
+if __name__ == '__main__':
+    no_para.check_dir_existence()
+    try:
+        print("boot up.")
+        server.start()
+    except KeyboardInterrupt:
+        server.stop()

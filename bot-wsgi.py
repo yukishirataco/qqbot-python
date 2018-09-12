@@ -473,7 +473,7 @@ server = wsgiserver.WSGIServer(app,host='127.0.0.1',port=8080)
 if __name__ == '__main__':
     no_para.check_dir_existence()
     try:
-        print("boot up.")
+        print("Bot已启动.")
         server.start()
     except KeyboardInterrupt:
         server.stop()
