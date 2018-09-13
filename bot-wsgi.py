@@ -463,7 +463,27 @@ def handle_msg(context):
     elif context['message_type'] == 'private':
         # 如果接收到的是私聊消息
         if context['user_id'] in admins:
-            pass
+            if context['message'].split()[0] == '!laffey':
+                if context['message'].split(' ',2)[1] == 'group':
+                    bot.send(context,'当前加入群组\n'+str(bot.get_group_list()))
+                    try:
+                        message = context['message'].split(' ',2)[2]
+                    except IndexError:
+                        bot.send(context,"群发消息指令格式错误，可能缺少参数\n格式如下:!laffey group <待发送消息>")
+                    else:
+                        glist = bot.get_group_list()
+                        # 获得 Bot 当前已经加入的群组
+                        gblist = [317872133,632331383]
+                        # 不启用群发功能的群组
+                        for i in range(0,len(glist)):
+                            gid = glist[i]['group_id']
+                            if gid in gblist:
+                                pass
+                            else:
+                                bot.send_group_msg(group_id=gid,message=message,auto_escape = False)
+                                bot.send(context,'群发:群组'+str(gid)+'的消息已发送成功！')
+                                print('群发:群组'+str(gid)+'的消息已发送成功！')
+
 
 
 # 测试环境:bot.run(host='127.0.0.1', port=8080)
