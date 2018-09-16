@@ -21,16 +21,12 @@ repeat_names = {
     624749918: '阿帕奇'
 }
 
-a_list = '吖醃醃厑錒呵吖ア啊A'
-b_list = '鉑僰蔢噃秡砵盋ボ伯B'
-c_list = '彳瓻卶灻杘伬瘛チ吃C'
-
-
 def abcgen():
+    a_list = '吖醃醃厑錒呵吖ア啊A'
+    b_list = '鉑僰蔢噃秡砵盋ボ伯B'
+    c_list = '彳瓻卶灻杘伬瘛チ吃C'
     #阿伯吃姓名替换生成器，仅供娱乐系列
-    name = choice(a_list) + choice(b_list) + choice(c_list)
-    return name
-
+    return choice(a_list) + choice(b_list) + choice(c_list)
 
 admins = [675571268, 2980503519]
 # 可以直接使用bot管理指令的Admin名单
@@ -61,6 +57,7 @@ def handle_msg(context):
             logrec.logging_command(context)
             if context['user_id'] in admins:
                 # 管理指令
+                # TODO:使用dict-function重构命令部分
                 if content.split(' ', 1)[1] == 'touch' or content.split(
                         ' ', 1)[1] == '摸摸':
                     bot.send(context, '唔……嗯……糟了，站着睡着了')
@@ -105,7 +102,7 @@ def handle_msg(context):
                         else:
                             logrec.logging_bad_type(context)
                             bot.send(context, '你输入的用户QQ号不是合法的数字。')
-
+                    # TODO:加入全局黑名单(gblacklist)功能，位于该名单中的用户将无法使用bot。
                     elif content.split(' ', 3)[2] == 'del' or content.split(
                             ' ', 3)[2] == '删除':
                         number = content.split(' ', 3)[3]
@@ -238,20 +235,6 @@ def handle_msg(context):
                     #用 URLLib 处理 Baidu 搜索关键词，将其编码成 URL 编码
                     bot.send(context, result)
 
-            elif content.split(' ', 2)[1] == 'google':
-                #由于谷歌在阿里云服务器上被墙，无法访问，所以这个命令也是无法访问的
-                try:
-                    word = content.split(' ', 2)[2]
-                except IndexError:
-                    #没有提供指令的时候raise IndexError，被捕捉到了。
-                    logrec.logging_error_empty_parameter(context)
-                    bot.send(context,
-                             '请提供Google搜索词\n指令格式:!laffey google <搜索关键词>')
-                else:
-                    word = urllib.parse.quote(word)
-                    result = one_para.google(word)
-                    bot.send(context, result)
-
             elif content.split(' ', 2)[1] == 'check':
                 #使用ipcheck.need.sh API查询域名的ICMP和TCP连通性
                 try:
@@ -265,25 +248,12 @@ def handle_msg(context):
                     result = network_tools.ip_check_gfwed(word)
                     bot.send(context, result)
 
-            elif content.split(' ', 2)[1] == 'booru':
-                #Gelbooru同理
-                #Gelbooru爬虫精简版，来自Ecchibot
-                tags = content.split(' ', 2)[2]
-                return_data = one_para.booru(tags)
-                bot.send(context, return_data['string'])
-                bot.send(context, [{
-                    "type": "image",
-                    "data": {
-                        "file": return_data['link']
-                    }
-                }])
-
             elif content.split(' ', 2)[1] == 'help' or content.split(
                     ' ', 2)[1] == '帮助':
                 try:
                     command = content.split(' ', 2)[2]
                 except IndexError:
-                    #没有提供指令的时候raise IndexError，被捕捉到了。
+                    # 没有提供指令的时候raise IndexError，被捕捉到了。
                     logrec.logging_error_empty_parameter(context)
                     bot.send(context,
                              '没有提供需要查询帮助的指令\n用法:!laffey help <需要查询帮助的指令名字>')
@@ -292,7 +262,7 @@ def handle_msg(context):
                     bot.send(context, helps)
 
             elif content.split(' ', 3)[1] == '女装':
-                #女装库
+                # 女装库
                 try:
                     target = content.split(' ', 3)[2]
                 except IndexError:

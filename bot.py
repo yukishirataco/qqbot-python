@@ -21,26 +21,26 @@ repeat_names = {
     624749918: '阿帕奇'
 }
 
-a_list = '吖醃醃厑錒呵吖ア啊A'
-b_list = '鉑僰蔢噃秡砵盋ボ伯B'
-c_list = '彳瓻卶灻杘伬瘛チ吃C'
-
 
 def abcgen():
-    #阿伯吃姓名替换生成器，仅供娱乐系列
+    a_list = '吖醃醃厑錒呵吖ア啊A'
+    b_list = '鉑僰蔢噃秡砵盋ボ伯B'
+    c_list = '彳瓻卶灻杘伬瘛チ吃C'
+    # 阿伯吃姓名替换生成器，仅供娱乐系列
     name = choice(a_list) + choice(b_list) + choice(c_list)
     return name
 
 
 admins = [675571268, 2980503519]
-#可以直接使用bot管理指令的Admin名单
+# 可以直接使用bot管理指令的Admin名单
 
-#检查目录存在性（工作目录以及运行目录）
+# 检查目录存在性（工作目录以及运行目录）
 
 bot = CQHttp(
     api_root='http://127.0.0.1:5700/',
     access_token='',
 )
+
 
 @bot.on_message()
 def handle_msg(context):
@@ -100,7 +100,7 @@ def handle_msg(context):
                                     f_conf_w.close()
                                 bot.send(
                                     context, '用户:' + number + '已被添加至群组:' +
-                                    str(group_id) + '的复读黑名单里，该用户将不会被机器人复读。')
+                                             str(group_id) + '的复读黑名单里，该用户将不会被机器人复读。')
                         else:
                             logrec.logging_bad_type(context)
                             bot.send(context, '你输入的用户QQ号不是合法的数字。')
@@ -122,7 +122,7 @@ def handle_msg(context):
                                     f_conf_w.close()
                                 bot.send(
                                     context, '用户' + number + '已从群组:' +
-                                    str(group_id) + '的黑名单中移除。')
+                                             str(group_id) + '的黑名单中移除。')
                             else:
                                 bot.send(
                                     context,
@@ -149,7 +149,7 @@ def handle_msg(context):
                                 f_conf_w.close()
                             bot.send(
                                 context, '群组 ' + str(context['group_id']) +
-                                ' 的复读频率已成功修改，当前数值:' + str(repeat) + '%。')
+                                         ' 的复读频率已成功修改，当前数值:' + str(repeat) + '%。')
 
                 elif content.split(' ', 1)[1] == 'status' or content.split(
                         ' ', 1)[1] == '状态':
@@ -181,16 +181,16 @@ def handle_msg(context):
                     ' ', 1)[1] == '信息':
                 bot.send(
                     context, '您的信息:\n聊天类型:' + context['message_type'] + '群号:' +
-                    str(context['group_id']) + '\n消息ID:' + str(
+                             str(context['group_id']) + '\n消息ID:' + str(
                         context['message_id']) + '\n发送者QQ:' + str(
-                            context['user_id']))
+                        context['user_id']))
             elif content.split(' ', 1)[1] == 'version' or content.split(
                     ' ', 1)[1] == '版本':
-                #查询版本号
+                # 查询版本号
                 bot.send(context, no_para.version())
             elif content.split(' ', 1)[1] == 'time' or content.split(
                     ' ', 1)[1] == '时间':
-                #报时
+                # 报时
                 times = no_para.times_str()
                 bot.send(context, times)
                 voice = no_para.time_harusame()
@@ -207,7 +207,7 @@ def handle_msg(context):
                         ' ', 3)[2].strip() == '显示':
                     bot.send(
                         context, '群组 ' + str(context['group_id']) +
-                        ' 的复读频率: \n' + str(repeat) + ' %')
+                                 ' 的复读频率: \n' + str(repeat) + ' %')
                 else:
                     pass
 
@@ -219,7 +219,7 @@ def handle_msg(context):
                         context,
                         '群组 ' + str(group_id) + ' 内的机器人黑名单查询完毕，共有 ' + str(
                             len(blacklist)) + ' 项\n内容如下:' + str(
-                                '\n'.join(blacklist)))
+                            '\n'.join(blacklist)))
                 else:
                     pass
 
@@ -234,15 +234,15 @@ def handle_msg(context):
                 else:
                     word = urllib.parse.quote(word)
                     result = one_para.baidu(word)
-                    #用 URLLib 处理 Baidu 搜索关键词，将其编码成 URL 编码
+                    # 用 URLLib 处理 Baidu 搜索关键词，将其编码成 URL 编码
                     bot.send(context, result)
 
             elif content.split(' ', 2)[1] == 'google':
-                #由于谷歌在阿里云服务器上被墙，无法访问，所以这个命令也是无法访问的
+                # 由于谷歌在阿里云服务器上被墙，无法访问，所以这个命令也是无法访问的
                 try:
                     word = content.split(' ', 2)[2]
                 except IndexError:
-                    #没有提供指令的时候raise IndexError，被捕捉到了。
+                    # 没有提供指令的时候raise IndexError，被捕捉到了。
                     logrec.logging_error_empty_parameter(context)
                     bot.send(context,
                              '请提供Google搜索词\n指令格式:!laffey google <搜索关键词>')
@@ -252,11 +252,11 @@ def handle_msg(context):
                     bot.send(context, result)
 
             elif content.split(' ', 2)[1] == 'check':
-                #使用ipcheck.need.sh API查询域名的ICMP和TCP连通性
+                # 使用ipcheck.need.sh API查询域名的ICMP和TCP连通性
                 try:
                     word = content.split(' ', 2)[2]
                 except IndexError:
-                    #没有提供指令的时候raise IndexError，被捕捉到了。
+                    # 没有提供指令的时候raise IndexError，被捕捉到了。
                     logrec.logging_error_empty_parameter(context)
                     bot.send(context,
                              '请提供要查询的域名!\n指令格式:!laffey check <待查询连通性域名/IP地址>')
@@ -265,8 +265,8 @@ def handle_msg(context):
                     bot.send(context, result)
 
             elif content.split(' ', 2)[1] == 'booru':
-                #Gelbooru同理
-                #Gelbooru爬虫精简版，来自Ecchibot
+                # Gelbooru同理
+                # Gelbooru爬虫精简版，来自Ecchibot
                 tags = content.split(' ', 2)[2]
                 return_data = one_para.booru(tags)
                 bot.send(context, return_data['string'])
@@ -282,7 +282,7 @@ def handle_msg(context):
                 try:
                     command = content.split(' ', 2)[2]
                 except IndexError:
-                    #没有提供指令的时候raise IndexError，被捕捉到了。
+                    # 没有提供指令的时候raise IndexError，被捕捉到了。
                     logrec.logging_error_empty_parameter(context)
                     bot.send(context,
                              '没有提供需要查询帮助的指令\n用法:!laffey help <需要查询帮助的指令名字>')
@@ -291,7 +291,7 @@ def handle_msg(context):
                     bot.send(context, helps)
 
             elif content.split(' ', 3)[1] == '女装':
-                #女装库
+                # 女装库
                 try:
                     target = content.split(' ', 3)[2]
                 except IndexError:
@@ -421,17 +421,17 @@ def handle_msg(context):
                             bot.send(
                                 context, context['message'].replace(
                                     '我考', '考' + abcgen()).replace(
-                                        '我靠', '靠' + abcgen()).replace(
-                                            '我拷', '拷' + abcgen()))
+                                    '我靠', '靠' + abcgen()).replace(
+                                    '我拷', '拷' + abcgen()))
                         elif context['user_id'] in repeat_names:
                             # 其他在列表中的人
                             bot.send(
                                 context, context['message'].replace(
                                     '我考', '考' +
-                                    repeat_names[context['user_id']]).replace(
-                                        '我靠',
-                                        '靠' + repeat_names[context['user_id']])
-                                .replace(
+                                          repeat_names[context['user_id']]).replace(
+                                    '我靠',
+                                    '靠' + repeat_names[context['user_id']])
+                                    .replace(
                                     '我拷',
                                     '拷' + repeat_names[context['user_id']]))
                         else:
@@ -439,7 +439,7 @@ def handle_msg(context):
                             bot.send(
                                 context, context['message'].replace(
                                     '我考', '考你').replace('我靠', '靠你').replace(
-                                        '我拷', '拷你'))
+                                    '我拷', '拷你'))
                         logrec.logging_repeat_success(context)
                 else:
                     if str(context['user_id']) in blacklist:
@@ -455,7 +455,7 @@ def handle_msg(context):
                             bot.send(
                                 context, context['message'].replace(
                                     '我们', '你们').replace(
-                                        '我', repeat_names[context['user_id']]))
+                                    '我', repeat_names[context['user_id']]))
                         else:
                             bot.send(context, context['message'].replace(
                                 '我', '你'))
@@ -469,7 +469,7 @@ def handle_msg(context):
 # 测试环境:bot.run(host='127.0.0.1', port=8080)
 # 启动Bot
 app = bot.wsgi
-server = wsgiserver.WSGIServer(app,host='127.0.0.1',port=8888)
+server = wsgiserver.WSGIServer(app, host='127.0.0.1', port=8888)
 if __name__ == '__main__':
     no_para.check_dir_existence()
     try:
