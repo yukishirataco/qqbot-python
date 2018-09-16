@@ -33,9 +33,10 @@ def abcgen():
 
 
 admins = [675571268, 2980503519]
-#可以直接使用bot管理指令的Admin名单
+# 可以直接使用bot管理指令的Admin名单
 
-#检查目录存在性（工作目录以及运行目录）
+# 检查目录存在性（工作目录以及运行目录）
+no_para.check_dir_existence()
 
 bot = CQHttp(
     api_root='http://127.0.0.1:5700/',
