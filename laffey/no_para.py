@@ -234,11 +234,9 @@ def time_harusame():
 def version():
     info = [
         'Laffey & Shuvi Bot Engine Under Test',
-        '这个 Bot 的当前版本号: 180912 内部代号:Quin',
+        '这个 Bot 的当前版本号: 180919 内部代号:Pipe',
         '更新日志:',
-        '·使用WSGI重新构建了Bot的启动代码，现在除非是由于网络问题，',
-        '·对Bot需要耗时的请求将不会再卡顿',
-        '·修正了几处文本字符串',
+        '·修正了定制化的复读功能',
         '·本项目现已发布隐私协议，详情请登录:',
         '·https://github.com/npfjcg/qqbot-python 查看。'
     ]
