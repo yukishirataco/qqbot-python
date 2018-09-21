@@ -1,12 +1,14 @@
 # -*- coding:utf-8 -*- #
 
-import urllib
-from random import choice
-from cqhttp import CQHttp
 import json
+import urllib
 import urllib.parse
-from laffey import one_para, no_para, two_paras, logrec, helping, weather, network_tools, encrypt
+from random import choice
+
 import wsgiserver
+from cqhttp import CQHttp
+
+from laffey import one_para, no_para, two_paras, logrec, helping, weather, network_tools, encrypt
 
 repeat_names = {
     870680559: 'BSY',
@@ -383,7 +385,7 @@ def handle_msg(context):
                 repeat = 40
             if context['user_id'] == 675571268:
                 repeat = 10
-            #神秘功能
+            # 某些人专用
             if choice(range(0, 100)) > 100 - repeat:
                 # 当概率大于复读频率时
                 if content[0] == '!' or "next time" in content or '[CQ:image,' in content:
@@ -458,9 +460,30 @@ def handle_msg(context):
                             if gid in gblist:
                                 pass
                             else:
-                                bot.send_group_msg(group_id=gid,message=message,auto_escape = False)
-                                bot.send(context,'群发:群组'+str(gid)+'的消息已发送成功！')
-                                print('群发:群组'+str(gid)+'的消息已发送成功！')
+                                try:
+                                    bot.send_group_msg(group_id=gid, message=message, auto_escape=False)
+                                except:
+                                    bot.send(context, '群组:' + str(gid) + '的消息:' + message + '推送失败!')
+                                else:
+                                    bot.send(context, '群发:群组' + str(gid) + '的消息已发送成功！')
+                                    print('群发:群组' + str(gid) + '的消息已发送成功！')
+                elif context['message'].split()[1] == 'update':
+                    # 向群组推送更新日志，请修改 laffey/no_para.py
+                    glist = bot.get_group_id()
+                    # 获得已加入的群组列表
+                    for i in range(0, len(glist)):
+                        gid = glist[i]['group_id']
+                        if gid == 317872133 or gid == 632331383:
+                            # in global banned list.
+                            pass
+                        else:
+                            try:
+                                bot.send_group_msg(group_id=gid, message=no_para.version(), auto_escape=False)
+                            except:
+                                bot.send(context, '群组:' + str(gid) + '的消息推送失败!')
+                                # TODO:在logrec中记录下bot消息发送失败的异常。
+                            else:
+                                bot.send(context, '群组' + str(gid) + '的消息推送成功!')
 
 
 
