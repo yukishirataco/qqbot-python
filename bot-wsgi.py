@@ -469,7 +469,7 @@ def handle_msg(context):
                                     print('群发:群组' + str(gid) + '的消息已发送成功！')
                 elif context['message'].split()[1] == 'update':
                     # 向群组推送更新日志，请修改 laffey/no_para.py
-                    glist = bot.get_group_id()
+                    glist = bot.get_group_list()
                     # 获得已加入的群组列表
                     for i in range(0, len(glist)):
                         gid = glist[i]['group_id']
