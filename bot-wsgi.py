@@ -379,12 +379,15 @@ def handle_msg(context):
                 pass
         else:
             # 非指令判定复读
-            if context['user_id'] == 542154951:
-                repeat = 5
-            if context['user_id'] == 1181948577:
-                repeat = 40
-            if context['user_id'] == 675571268:
-                repeat = 10
+            if repeat == 0:
+                pass
+            else:
+                if context['user_id'] == 542154951:
+                    repeat = 5
+                if context['user_id'] == 1181948577:
+                    repeat = 40
+                if context['user_id'] == 675571268:
+                    repeat = 10
             # 某些人专用
             if choice(range(0, 100)) > 100 - repeat:
                 # 当概率大于复读频率时
