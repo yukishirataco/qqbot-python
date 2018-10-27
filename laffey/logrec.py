@@ -16,19 +16,19 @@ def logging_repeat_success(context):
     uid = str(context['user_id'])
     message = context['message']
     with open(logfile, 'a') as logout:
-        logout.write('[信息][' + datetime + ']' + ' 群组:' + gid +
-                     ' 内用户:' + uid + '发的消息' + message + '被复读了')
+        logout.write('[信息][' + datetime + ']' + ' 群组:' + gid + ' 内用户:' + uid +
+                     '发的消息' + message + '被复读了')
         logout.close()
-    print('[信息][' + datetime + ']' + ' 群组:' + gid + ' 内用户:' + uid +
-          '发的消息 ' + message + ' 被复读了')
+    print('[信息][' + datetime + ']' + ' 群组:' + gid + ' 内用户:' + uid + '发的消息 ' +
+          message + ' 被复读了')
 
 
 def logging_repeat_failure(context):
     gid = str(context['group_id'])
     uid = str(context['user_id'])
     with open(logfile, 'a') as logout:
-        logout.write('[信息][' + datetime + ']' + ' 群组:' + gid +
-                     ' 内用户:' + uid + '由于位于黑名单内，复读失败')
+        logout.write('[信息][' + datetime + ']' + ' 群组:' + gid + ' 内用户:' + uid +
+                     '由于位于黑名单内，复读失败')
         logout.close()
     print('[信息][' + datetime + ']' + ' 群组:' + gid + ' 内用户:' + uid +
           '由于位于黑名单内，复读失败')
@@ -39,11 +39,11 @@ def logging_command(context):
     uid = str(context['user_id'])
     message = context['message']
     with open(logfile, 'a') as logout:
-        logout.write('[信息][' + datetime + ']' + ' 群组: ' + gid +
-                     ' 内用户: ' + uid + '使用了指令: ' + message)
+        logout.write('[信息][' + datetime + ']' + ' 群组: ' + gid + ' 内用户: ' +
+                     uid + '使用了指令: ' + message)
         logout.close()
-    print('[信息][' + datetime + ']' + ' 群组: ' + gid + ' 内用户: ' +
-          uid + '使用了指令: ' + message)
+    print('[信息][' + datetime + ']' + ' 群组: ' + gid + ' 内用户: ' + uid +
+          '使用了指令: ' + message)
 
 
 def logging_error_empty_parameter(context):
@@ -51,11 +51,11 @@ def logging_error_empty_parameter(context):
     uid = str(context['user_id'])
     message = context['message']
     with open(logfile, 'a') as logout:
-        logout.write('[错误][' + datetime + ']' + ' 群组: ' + gid +
-                     ' 内用户: ' + uid + '使用指令: ' + message + ' 时出现错误:未提供参数')
+        logout.write('[错误][' + datetime + ']' + ' 群组: ' + gid + ' 内用户: ' +
+                     uid + '使用指令: ' + message + ' 时出现错误:未提供参数')
         logout.close()
-    print('[错误][' + datetime + ']' + ' 群组: ' + gid + ' 内用户: ' +
-          uid + '使用指令: ' + message + ' 时出现错误:未提供参数')
+    print('[错误][' + datetime + ']' + ' 群组: ' + gid + ' 内用户: ' + uid +
+          '使用指令: ' + message + ' 时出现错误:未提供参数')
 
 
 def logging_bad_type(context):
@@ -63,19 +63,18 @@ def logging_bad_type(context):
     uid = str(context['user_id'])
     message = context['message']
     with open(logfile, 'a') as logout:
-        logout.write('[错误][' + datetime + ']' + ' 群组: ' + gid +
-                     ' 内用户: ' + uid + '使用指令: ' + message + ' 时出现错误:错误的参数类型')
+        logout.write('[错误][' + datetime + ']' + ' 群组: ' + gid + ' 内用户: ' +
+                     uid + '使用指令: ' + message + ' 时出现错误:错误的参数类型')
         logout.close()
-    print('[错误][' + datetime + ']' + ' 群组: ' + gid + ' 内用户: ' +
-          uid + '使用指令: ' + message + ' 时出现错误:错误的参数类型')
+    print('[错误][' + datetime + ']' + ' 群组: ' + gid + ' 内用户: ' + uid +
+          '使用指令: ' + message + ' 时出现错误:错误的参数类型')
 
-def logging_send_message_exception(gid,message):
+
+def logging_send_message_exception(gid, message):
     #用户位于黑名单之外，不复读
     with open(logfile, 'a') as logout:
-        logout.write('[信息][' + datetime + ']' + ' 群组:' + gid +
-                     ' 内推送的消息' + message + '发送失败!')
+        logout.write('[信息][' + datetime + ']' + ' 群组:' + gid + ' 内推送的消息' +
+                     message + '发送失败!')
         logout.close()
-    print('[信息][' + datetime + ']' + ' 群组:' + gid +
-            ' 内推送的消息' + message + '发送失败!')
-
-
+    print('[信息][' + datetime + ']' + ' 群组:' + gid + ' 内推送的消息' + message +
+          '发送失败!')

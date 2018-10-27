@@ -4,14 +4,16 @@ import json
 import urllib
 import urllib.parse
 from random import choice
-import time 
+import time
 
 import wsgiserver
 from cqhttp import CQHttp
 
 from laffey import one_para, no_para, two_paras, logrec, helping, weather, network_tools, encrypt
 
-times = str(time.strftime('%Y-%m-%d', time.localtime()) +' '+ time.strftime("%H:%M:%S", time.localtime()))
+times = str(
+    time.strftime('%Y-%m-%d', time.localtime()) + ' ' +
+    time.strftime("%H:%M:%S", time.localtime()))
 
 repeat_names = {
     870680559: 'BSY',
@@ -26,12 +28,14 @@ repeat_names = {
     624749918: '阿帕奇'
 }
 
+
 def abcgen():
     a_list = '吖醃醃厑錒呵吖ア啊A'
     b_list = '鉑僰蔢噃秡砵盋ボ伯B'
     c_list = '彳瓻卶灻杘伬瘛チ吃C'
     #阿伯吃姓名替换生成器，仅供娱乐系列
     return choice(a_list) + choice(b_list) + choice(c_list)
+
 
 admins = [675571268, 2980503519]
 # 可以直接使用bot管理指令的Admin名单
@@ -43,6 +47,7 @@ bot = CQHttp(
     api_root='http://127.0.0.1:5700/',
     access_token='',
 )
+
 
 @bot.on_message()
 def handle_msg(context):
@@ -450,30 +455,38 @@ def handle_msg(context):
         # 如果接收到的是私聊消息
         if context['user_id'] in admins:
             if context['message'].split()[0] == '!laffey':
-                if context['message'].split(' ',2)[1] == 'group':
-                    bot.send(context,'当前加入群组\n'+str(bot.get_group_list()))
+                if context['message'].split(' ', 2)[1] == 'group':
+                    bot.send(context, '当前加入群组\n' + str(bot.get_group_list()))
                     try:
-                        message = context['message'].split(' ',2)[2]
+                        message = context['message'].split(' ', 2)[2]
                     except IndexError:
-                        bot.send(context,"群发消息指令格式错误，可能缺少参数\n格式如下:!laffey group <待发送消息>")
+                        bot.send(
+                            context,
+                            "群发消息指令格式错误，可能缺少参数\n格式如下:!laffey group <待发送消息>")
                     else:
                         glist = bot.get_group_list()
                         # 获得 Bot 当前已经加入的群组
-                        gblist = [317872133,632331383]
+                        gblist = [317872133, 632331383]
                         # 不启用群发功能的群组
-                        for i in range(0,len(glist)):
+                        for i in range(0, len(glist)):
                             gid = glist[i]['group_id']
                             if gid in gblist:
                                 pass
                             else:
                                 try:
-                                    bot.send_group_msg(group_id=gid, message=message, auto_escape=False)
+                                    bot.send_group_msg(
+                                        group_id=gid,
+                                        message=message,
+                                        auto_escape=False)
                                 except Exception as e:
                                     print(str(e))
-                                    logrec.logging_send_message_exception(gid,message)
+                                    logrec.logging_send_message_exception(
+                                        gid, message)
                                 else:
-                                    bot.send(context, '群发:群组' + str(gid) + '的消息已发送成功！')
-                                    print('['+times+']'+' 群发:群组' + str(gid) + '的消息已发送成功！')
+                                    bot.send(context,
+                                             '群发:群组' + str(gid) + '的消息已发送成功！')
+                                    print('[' + times + ']' + ' 群发:群组' +
+                                          str(gid) + '的消息已发送成功！')
                 elif context['message'].split()[1] == 'update':
                     # 向群组推送更新日志，请修改 laffey/no_para.py
                     glist = bot.get_group_list()
@@ -485,24 +498,29 @@ def handle_msg(context):
                             pass
                         else:
                             try:
-                                bot.send_group_msg(group_id=gid, message=no_para.version(), auto_escape=False)
+                                bot.send_group_msg(
+                                    group_id=gid,
+                                    message=no_para.version(),
+                                    auto_escape=False)
                             except Exception as e:
                                 print(str(e))
                                 # TODO:在logrec中记录下bot消息发送失败的异常。
-                                logrec.logging_send_message_exception(gid,no_para.version())
+                                logrec.logging_send_message_exception(
+                                    gid, no_para.version())
                             else:
-                                bot.send(context,'['+times+']'+ ' 群发群组' + str(gid) + '的版本号推送成功!')
-
+                                bot.send(
+                                    context, '[' + times + ']' + ' 群发群组' +
+                                    str(gid) + '的版本号推送成功!')
 
 
 # 测试环境:bot.run(host='127.0.0.1', port=8080)
 # 启动Bot
 app = bot.wsgi
-server = wsgiserver.WSGIServer(app,host='127.0.0.1',port=8080)
+server = wsgiserver.WSGIServer(app, host='127.0.0.1', port=8080)
 if __name__ == '__main__':
     no_para.check_dir_existence()
     try:
-        print('['+times+']' + " Bot已启动.")
+        print('[' + times + ']' + " Bot已启动.")
         print(no_para.version())
         server.start()
     except KeyboardInterrupt:

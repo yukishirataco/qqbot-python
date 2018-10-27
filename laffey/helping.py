@@ -41,8 +41,7 @@ def Help_for_Single_Command(command):
         )
     elif command == 'check':
         help_of_cmd = (
-            '命令:!laffey check <IP/域名>\n说明:使用 ipcheck.need.sh API查询域名的连通性'
-        )
+            '命令:!laffey check <IP/域名>\n说明:使用 ipcheck.need.sh API查询域名的连通性')
     else:
 
         help_of_cmd = ('你要查询的命令不存在。')

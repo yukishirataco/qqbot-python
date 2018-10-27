@@ -79,7 +79,7 @@ def ip_check_gfwed(host):
                 stat = '当前域名/IP地址可能已经被屏蔽，或者未开启TCP与ICMP检测，阻断方式:IP阻断'
             else:
                 stat = '访问正常'
-            return (
-                '目标的IP地址:' + ipaddr + '\n' + '墙外连通性测试原始结果如下:\nICMP:' + icmp_outside_gfw
-                + ' TCP:' + tcp_outside_gfw + '\n' + '墙内连通性测试原始结果如下:\nICMP:' +
-                icmp_inside_gfw + ' TCP:' + tcp_inside_gfw + '\n' + stat)
+            return ('目标的IP地址:' + ipaddr + '\n' + '墙外连通性测试原始结果如下:\nICMP:' +
+                    icmp_outside_gfw + ' TCP:' + tcp_outside_gfw + '\n' +
+                    '墙内连通性测试原始结果如下:\nICMP:' + icmp_inside_gfw + ' TCP:' +
+                    tcp_inside_gfw + '\n' + stat)
