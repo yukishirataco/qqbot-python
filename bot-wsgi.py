@@ -4,11 +4,14 @@ import json
 import urllib
 import urllib.parse
 from random import choice
+import time 
 
 import wsgiserver
 from cqhttp import CQHttp
 
 from laffey import one_para, no_para, two_paras, logrec, helping, weather, network_tools, encrypt
+
+times = str(time.strftime('%Y-%m-%d', time.localtime()) +' '+ time.strftime("%H:%M:%S", time.localtime()))
 
 repeat_names = {
     870680559: 'BSY',
@@ -470,7 +473,7 @@ def handle_msg(context):
                                     logrec.logging_send_message_exception(gid,message)
                                 else:
                                     bot.send(context, '群发:群组' + str(gid) + '的消息已发送成功！')
-                                    print('群发:群组' + str(gid) + '的消息已发送成功！')
+                                    print('['+times+']'+' 群发:群组' + str(gid) + '的消息已发送成功！')
                 elif context['message'].split()[1] == 'update':
                     # 向群组推送更新日志，请修改 laffey/no_para.py
                     glist = bot.get_group_list()
@@ -488,7 +491,7 @@ def handle_msg(context):
                                 # TODO:在logrec中记录下bot消息发送失败的异常。
                                 logrec.logging_send_message_exception(gid,no_para.version())
                             else:
-                                bot.send(context, '群组' + str(gid) + '的消息推送成功!')
+                                bot.send(context,'['+times+']'+ ' 群发群组' + str(gid) + '的版本号推送成功!')
 
 
 
@@ -499,7 +502,8 @@ server = wsgiserver.WSGIServer(app,host='127.0.0.1',port=8080)
 if __name__ == '__main__':
     no_para.check_dir_existence()
     try:
-        print("Bot已启动.")
+        print('['+times+']' + " Bot已启动.")
+        print(no_para.version())
         server.start()
     except KeyboardInterrupt:
         server.stop()
