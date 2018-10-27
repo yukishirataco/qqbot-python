@@ -465,8 +465,9 @@ def handle_msg(context):
                             else:
                                 try:
                                     bot.send_group_msg(group_id=gid, message=message, auto_escape=False)
-                                except:
-                                    bot.send(context, '群组:' + str(gid) + '的消息:' + message + '推送失败!')
+                                except Exception as e:
+                                    print(str(e))
+                                    logrec.logging_send_message_exception(gid,message)
                                 else:
                                     bot.send(context, '群发:群组' + str(gid) + '的消息已发送成功！')
                                     print('群发:群组' + str(gid) + '的消息已发送成功！')
@@ -482,9 +483,10 @@ def handle_msg(context):
                         else:
                             try:
                                 bot.send_group_msg(group_id=gid, message=no_para.version(), auto_escape=False)
-                            except:
-                                bot.send(context, '群组:' + str(gid) + '的消息推送失败!')
+                            except Exception as e:
+                                print(str(e))
                                 # TODO:在logrec中记录下bot消息发送失败的异常。
+                                logrec.logging_send_message_exception(gid,no_para.version())
                             else:
                                 bot.send(context, '群组' + str(gid) + '的消息推送成功!')
 
