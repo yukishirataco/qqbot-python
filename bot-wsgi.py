@@ -189,11 +189,7 @@ def handle_msg(context):
                     # 获得现在的时间戳
                     uptime = int(nowtime - start_time)
                     # 计算得出uptime
-                    if uptime < 60:
-                        bot.send(context, "Bot uptime:" + str(uptime) + 's.')
-                    elif uptime > 60 * 60 * 24:
-                        days = divmod(uptime, 60 * 60 * 24)
-                        bot.send(context, 'Bot uptime:\n' + changeTime(days))
+                    bot.send(context, 'Bot uptime:\n' + changeTime(uptime))
 
 
                 elif content.split(' ', 3)[1] == '炸群' or content.split(
