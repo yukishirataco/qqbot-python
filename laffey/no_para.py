@@ -1,12 +1,8 @@
 #-*- coding:utf-8 -*-
 
-import time
 import os
-import urllib
-from random import choice, randint
-from bs4 import BeautifulSoup
-import requests
-import json
+import time
+from random import randint
 
 
 def times_str():

@@ -1,15 +1,34 @@
 # -*- coding:utf-8 -*- #
 
 import json
+import math
+import time
 import urllib
 import urllib.parse
 from random import choice
-import time
 
 import wsgiserver
 from cqhttp import CQHttp
 
 from laffey import one_para, no_para, two_paras, logrec, helping, weather, network_tools, encrypt
+
+
+def changeTime(allTime):
+    day = 24 * 60 * 60
+    hour = 60 * 60
+    min = 60
+    if allTime < 60:
+        return "%d sec" % math.ceil(allTime)
+    elif allTime > day:
+        days = divmod(allTime, day)
+        return "%d days, %s" % (int(days[0]), changeTime(days[1]))
+    elif allTime > hour:
+        hours = divmod(allTime, hour)
+        return '%d hours, %s' % (int(hours[0]), changeTime(hours[1]))
+    else:
+        mins = divmod(allTime, min)
+        return "%d mins, %d sec" % (int(mins[0]), math.ceil(mins[1]))
+
 
 times = str(
     time.strftime('%Y-%m-%d', time.localtime()) + ' ' +
@@ -47,6 +66,7 @@ bot = CQHttp(
     api_root='http://127.0.0.1:5700/',
     access_token='',
 )
+start_time = time.time()
 
 
 @bot.on_message()
@@ -164,6 +184,17 @@ def handle_msg(context):
                     # 管理员指令，查看服务器运行状态。
                     status = no_para.system_status()
                     bot.send(context, status)
+                elif content.split(' ', 1)[1] == 'uptime':
+                    nowtime = time.time()
+                    # 获得现在的时间戳
+                    uptime = int(nowtime - start_time)
+                    # 计算得出uptime
+                    if uptime < 60:
+                        bot.send(context, "Bot uptime:" + str(uptime) + 's.')
+                    elif uptime > 60 * 60 * 24:
+                        days = divmod(uptime, 60 * 60 * 24)
+                        bot.send(context, 'Bot uptime:\n' + changeTime(days))
+
 
                 elif content.split(' ', 3)[1] == '炸群' or content.split(
                         ' ', 3)[1] == 'flow':
@@ -356,11 +387,16 @@ def handle_msg(context):
                     logrec.logging_error_empty_parameter(context)
                     bot.send(
                         context,
-                        '请输入您要查询MyTraceRoute结果的IP/域名\n由于网络连接问题，这个指令可能需要比较久的时间才能返回\n指令格式:!laffey mtr <IP/域名>'
+                        '请输入您要查询 MyTraceRoute 结果的IP/域名\n由于网络连接问题，这个指令可能需要比较久的时间才能返回\n指令格式:!laffey mtr <IP/域名>'
                     )
                 else:
-                    result = network_tools.mtr(addr)
-                    bot.send(context, result)
+                    try:
+                        result = network_tools.mtr(addr)
+                    except Exception as e:
+                        # TODO:在捕获到 Mytraceroute 发生异常之后po到测试群组里
+                        pass
+                    else:
+                        bot.send(context, result)
 
             elif content.split(' ', 3)[1] == 'encode' or content.split(
                     ' ', 3)[1] == '加密':
