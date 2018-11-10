@@ -30,9 +30,7 @@ def changeTime(allTime):
         return "%d mins, %d sec" % (int(mins[0]), math.ceil(mins[1]))
 
 
-times = str(
-    time.strftime('%Y-%m-%d', time.localtime()) + ' ' +
-    time.strftime("%H:%M:%S", time.localtime()))
+times = str(time.strftime('%Y-%m-%d', time.localtime()) + ' ' + time.strftime("%H:%M:%S", time.localtime()))
 
 repeat_names = {
     870680559: 'BSY',
@@ -517,7 +515,7 @@ def handle_msg(context):
                                 else:
                                     bot.send(context,
                                              '群发:群组' + str(gid) + '的消息已发送成功！')
-                                    print('[' + times + ']' + ' 群发:群组' +
+                                    print('[信息]' + ' 群发:群组' +
                                           str(gid) + '的消息已发送成功！')
                 elif context['message'].split()[1] == 'update':
                     # 向群组推送更新日志，请修改 laffey/no_para.py
